@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hospital_management.hospital_patient_form" model="ir.ui.view">
+        <field name="name">Patients</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="is_child"/>
+                        <field name="age"/>
+                    </group>
+                </sheet>
+                 <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"  options="{'post_refresh':'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hospital_management.hospital_patient__tree" model="ir.ui.view">
+        <field name="name">Patients</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                    <field name="name"/>
+                    <field name="age"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

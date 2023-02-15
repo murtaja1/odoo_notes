@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- action that links us to a model -->
+    <record id="hospital_management.hospital_patient_action" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+    <!-- a menu that has no parent which is the parent (the menu that appears in the dashboard ) which call an action-->
+    <menuitem
+        id="hospital_management.root_menu"
+        name="Hospital Management"
+        action="hospital_management.hospital_patient_action"
+        />
+    <!-- a menu item that depnds on the parent menu which does nothing -->
+    <menuitem
+        id="hospital_management.operations_menu"
+        name="Operations"
+        parent="hospital_management.root_menu"
+        sequence="10"/>
+    <!-- a submenu item that depnds on the operations parent menu which calls an action -->
+    <menuitem
+        id="hospital_management.patients_menu"
+        name="Patients"
+        action="hospital_management.hospital_patient_action"
+        parent="hospital_management.operations_menu"
+        sequence="10"/>
+
+</odoo>
