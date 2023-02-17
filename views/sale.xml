@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- we have inherited from sale.order form view to add the description field -->
+        <record id="sale_order_description_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.inherited</field>
+            <field name="model">sale.order</field>
+            <!-- ref = the form view 'External ID'-->
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <!-- you can use either the field or xpath to add to an inherited form view -->
+
+                <!-- means after the partner_id field -->
+                <!-- <field name="partner_id" position="after">
+                    <field name='sale_description'/>
+                </field> -->
+
+                <!-- means there is a field name partner_id -->
+                <!-- you can also add after a div tag or anything instead of field -->
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="sale_description"/>
+                </xpath>
+            </field>
+        </record>
+        <!-- we have inherited tree sale.order form view to add the description field -->
+        <record id="sale_order_description_tree_inherit" model="ir.ui.view">
+            <field name="name">sale.order.inherited</field>
+            <field name="model">sale.order</field>
+            <!-- ref = the tree view 'External ID'-->
+            <!-- get the 'External ID' by clicking the arrow of Inherited View to go to the main tree view -->
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <!-- you can use either the field or xpath to add to an inherited form view -->
+
+                <!-- means there is a field name partner_id -->
+                <!-- you can also add after a div tag or anything instead of field -->
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="sale_description"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
