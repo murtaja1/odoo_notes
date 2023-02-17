@@ -45,12 +45,51 @@
         </field>
     </record>
 
+    <!-- kanban view for hospital.patient -->
+    <record id="hospital_management.hospital_patient_kanban_view" model="ir.ui.view">
+        <field name="name">hospital.patient.kanban</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <!-- we have to define the fields and then use them inside the template. -->
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="age"/>
+                <field name='capitalize_name'/>
+                <template>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>
+                                       Ref: <field name="ref"/>
+                                    </li>
+                                    <li>
+                                       Name: <field name="name"/>
+                                    </li>
+                                    <li>
+                                       Age: <field name="age"/>
+                                    </li>
+                                    <li>
+                                       Capitalize Name: <field name="capitalize_name"/>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+
+                </template>
+            </kanban>
+        </field>
+    </record>
+
     <!-- a search view "filter" -->
     <record id="hospital_management.hospital_patient_search" model="ir.ui.view">
         <field name="name">hospital.patient.search</field>
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
-            <search >
+            <search>
                 <!-- when filtering, filter for name or ref in the same time without the user choosing which one to filter for! -->
                 <!-- | means or -->
                 <field name="name" filter_domain="['|', ('name', 'ilike', self), ('ref', 'ilike', self)]"/>
