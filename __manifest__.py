@@ -1,5 +1,6 @@
 {
     'name': "Hospital Management System",
+    'version':"16",
     'summary': """ This module will manage all the hospital aspects """,
     'description': """ This module will manage all the hospital aspects """,
     'author': "Murtaja",
@@ -14,4 +15,5 @@
         'views/hospital_patient.xml',
     ],
     'license': 'Other proprietary',
+    # 'application': True # consider it as an application.
 }
