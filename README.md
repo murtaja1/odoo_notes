@@ -1,6 +1,6 @@
 # odoo_notes
 
-# adding a StatusBar:
+# 1. adding a StatusBar:
 
 1. add a selection field named state in the model with the states like e.g.
 
@@ -49,7 +49,7 @@ def action_confirm(self):
 - string="Confirm": the display name.
 - states="draft": when should this button be visible. meaning it'll be visible in draft only or you can set to states="draft,cancel,..."
 
-# fields and attributes:
+# 2. fields and attributes:
 
 ## attributes:
 
@@ -71,7 +71,7 @@ responsible_id = fields.Many2one('res.partner', string="Responsible")
 
 - 'res.partner': the name of the model.
 
-# Methods Overriding:
+# 3. Methods Overriding:
 
 ## create method:
 
@@ -86,7 +86,7 @@ def create(self, vals):
 
 - vals: the record values that you can update before saving the record.
 
-# Sequential value:
+# 4. Sequential value:
 
 ### it's a value that is auto generated with every record.
 
@@ -143,7 +143,7 @@ def create(self, vals_list):
 <field name="ref"/>
 ```
 
-# Group by and filters:
+# 5. Group by and filters:
 
 ### it's a way of filtering the records or grouping them by a field.
 
