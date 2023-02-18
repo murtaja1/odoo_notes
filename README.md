@@ -1,6 +1,6 @@
 # odoo_notes
 
-## adding a StatusBar:
+# adding a StatusBar:
 
 1. add a selection field named state in the model with the states like e.g.
    ```state = fields.Selection(
@@ -15,14 +15,14 @@
    )
    ```
 2. add a header tag in the form view e.g.
-   widget="statusbar": odoo widget for styling
-   options="{ 'clickable': '1' }": to make the statusbar clickable.
-   statusbar_visible='draft,confirm,done': show only the following states.
-   ```
+``` 
    <header>
        <field name="state" widget="statusbar" options="{ 'clickable': '1' }" statusbar_visible='draft,confirm,done'/>
    </header>
 
+- widget="statusbar": odoo widget for styling.
+- options="{ 'clickable': '1' }": to make the statusbar clickable.
+- statusbar_visible='draft,confirm,done': show only the following states.
    ```
 
 ### Adding buttons in the status bar:
@@ -43,4 +43,10 @@
 - name="action_confirm": the name of the function in the model.
 - string="Confirm": the display name.
 - states="draft": when should this button be visible. meaning it'll be visible in draft only or you can set to states="draft,cancel,..."
+```
+
+# fields and attributes:
+```
+age = fields.Integer(tracking=True)
+tracking=True: means log any change to this field in the chatter.
 ```

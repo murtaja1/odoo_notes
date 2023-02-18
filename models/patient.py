@@ -23,6 +23,7 @@ class HospitalPatient(models.Model):
         ],
         string='Status',
         default='draft',
+        tracking=True
     )
 
     def action_confirm(self):
