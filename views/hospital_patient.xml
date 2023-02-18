@@ -119,6 +119,7 @@
                 <!-- to add a default group filter in the group by dropdown -->
                 <group expand="0" string="Group By">
                     <filter string="Gender" name="group_by_gender" context="{'group_by': 'gender'}"/>
+                    <filter string="Name" name="group_by_name" context="{'group_by': 'name'}"/>
                 </group>
             </search>
         </field>

@@ -142,3 +142,47 @@ def create(self, vals_list):
 ```
 <field name="ref"/>
 ```
+
+# Group by and filters:
+
+### it's a way of filtering the records or grouping them by a field.
+
+### to add a filter or group by follow the code:
+
+```
+<record id="hospital_management.hospital_patient_search" model="ir.ui.view">
+    <field name="name">hospital.patient.search</field>
+    <field name="model">hospital.patient</field>
+    <field name="arch" type="xml">
+        <search>
+            <!-- when filtering, filter for name or ref in the same time without the user choosing which one to filter for! -->
+            <!-- | means or -->
+            <field name="name" filter_domain="['|', ('name', 'ilike', self), ('ref', 'ilike', self)]"/>
+            <field name="age"/>
+
+            <!-- to add a default filter in the Filters dropdown -->
+            <filter string="Female" name="filter_female" domain="[('gender', '=', 'female')]"/>
+            <filter string="Other" name="filter_other" domain="[('gender', '=', 'other')]"/>
+            <separator/> <!-- used as an and operator in the search-->
+            <filter string="is child" name="filter_child" domain="[('is_child', '=', True)]"/>
+
+            <!-- to add a default group filter in the group by dropdown -->
+            <group expand="0" string="Group By">
+                <filter string="Gender" name="group_by_gender" context="{'group_by': 'gender'}"/>
+                <filter string="Name" name="group_by_name" context="{'group_by': 'name'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+```
+## Adding a default group by or filter:
+### add the following field in the action record:
+1. group by one level.
+- write `search_default` then the name of the group by that you created ex: `group_by_gender` for group by or `name` for filter.
+```
+<field name="context">{'search_default_group_by_gender': 1}</field>
+```
+2. add more default group by:
+```
+<field name="context">{'search_default_group_by_gender': 1, 'search_default_group_by_name': 1}</field>
+```
