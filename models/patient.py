@@ -3,10 +3,10 @@ from odoo.exceptions import ValidationError
 
 class HospitalPatient(models.Model):
     _name = "hospital.patient"
-    _inherit = 'mail.thread'
+    _inherit = ['mail.thread', 'mail.activity.mixin'] # 'mail.activity.mixin' used to schedule an activity.
     _description = "hospital.patient"
 
-    # tracking attr used to log the change in the chatter. 
+    # tracking attr used to log the change in the chatter.  
     name = fields.Char(tracking=True)
     is_child = fields.Boolean(tracking=True)
     age = fields.Integer(tracking=True)
@@ -14,6 +14,16 @@ class HospitalPatient(models.Model):
     # compute attr means that the field will be filled the function.
     capitalize_name = fields.Char(compute='_compute_capitalize_name')
     ref = fields.Char(name="Reference", default=lambda self: _('New'))
+    state = fields.Selection(
+        selection=[
+            ('draft', 'Draft'),
+            ('confirm', 'Confirm'),
+            ('done', 'Done'),
+            ('cancel', 'Cancelled'),
+        ],
+        string='Status',
+        default='draft',
+    )
 
     # conditions on a field.
     @api.constrains('is_child', 'age')

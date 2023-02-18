@@ -7,6 +7,9 @@
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
             <form string="">
+                <header>
+                    <field name="state" widget="statusbar" options="{ 'clickable': '1' }" statusbar_visible='draft,confirm,done'/>
+                </header>
                 <sheet>
                     <div class="oe_title">
                         <h1>
@@ -25,7 +28,11 @@
                 <!-- logging and chatter where new changes will be recorded if set 'tracking to true' in the model field-->
                 <div class="oe_chatter">
                     <field name="message_follower_ids"/>
+                    <!-- to add followers -->
+                    <field name="activity_ids"/>
+                    <!-- to schedule an activity. -->
                     <field name="message_ids" options="{'post_refresh':'recipients'}"/>
+                    <!-- to send a message -->
                 </div>
             </form>
         </field>
