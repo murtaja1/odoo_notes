@@ -46,7 +46,16 @@
 ```
 
 # fields and attributes:
+## attributes:
 ```
-age = fields.Integer(tracking=True)
 tracking=True: means log any change to this field in the chatter.
+used like:
+age = fields.Integer(tracking=True)
+```
+## fields:
+```
+many2one field: like a selection field with data from another model:
+used like:
+responsible_id = fields.Many2one('res.partner', string="Responsible")
+- 'res.partner': the name of the model.
 ```
