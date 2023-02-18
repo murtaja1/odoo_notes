@@ -25,6 +25,18 @@ class HospitalPatient(models.Model):
         default='draft',
     )
 
+    def action_confirm(self):
+        self.state = 'confirm'
+
+    def action_done(self):
+        self.state = 'done'
+    
+    def action_cancel(self):
+        self.state = 'cancel'
+
+    def action_draft(self):
+        self.state = 'draft'
+
     # conditions on a field.
     @api.constrains('is_child', 'age')
     def _check_child_age(self):
