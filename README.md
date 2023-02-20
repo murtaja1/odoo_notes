@@ -233,26 +233,38 @@ def create(self, vals_list):
 
 ### age is the field name and 18 is the value and &lt;= is the operator.
 
-### - Domain with one field: 
+### Domain with one field: 
 ```
 <field name="domain">[('age', '&lt;=', '18')]</field>
 ```
-### - Domain with one field and or operator: 
+### Domain with one field and `or` operator: 
 ```
 <field name="domain">['|',('age', '&lt;=', '18'), ('gender', '=', 'male')]</field>
 ```
-### - Domain with one field and 'and' operator: 
+### Domain with one field and `and` operator: 
 ```
 <field name="domain">[('age', '&lt;=', '18'), ('gender', '=', 'male')]</field>
 ```
 # 8. Context:
-## set default value for field in the context.
+## - set default value for field in the context.
 ### add the following context field in the action record.
-### write default_  followed by the field name then colon then the value.
+### write `default_` followed by the field name then colon then the value.
 ```
 <field name="context">{'default_gender': 'male'}</field>
 ```
 ### add default value for more than one field.
 ```
 <field name="context">{'default_gender': 'male', 'default_age': 18}</field>
+```
+## - hide field based on the context.
+### add the following field in the action record.
+### `hide_` followed by field name
+```
+<field name="context">{'hide_gender': 1}</field>
+```
+### then add following attribute `invisible="context.get('hide_gender')"` in the form view in the field.
+### the `context.get('hide_gender')` will be replaced by in value in the context in the action record.
+### `hide_gender` is the key in the context.
+```
+<field name='gender' invisible="context.get('hide_gender')"/>
 ```
