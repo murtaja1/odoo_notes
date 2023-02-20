@@ -34,7 +34,7 @@
 ```
 
 
-# 2. adding a StatusBar:
+# 2. adding a StatusBar (buttons):
 
 1. add a selection field named state in the model with the states like e.g.
 
@@ -63,7 +63,7 @@ state = fields.Selection(
 - options="{ 'clickable': '1' }": to make the statusbar clickable.
 - statusbar_visible='draft,confirm,done': show only the following states.
 
-### Adding buttons in the status bar:
+## Adding buttons in the status bar:
 
 1. we add a function in the model like:
 
@@ -75,13 +75,13 @@ def action_confirm(self):
 2. we add a button in the form view that's related to the model, like:
 
 ```
-<button id="button_confirm" type="object" name="action_confirm" string="Confirm" class='btn-primary' states="draft"/>
+<button id="button_confirm" type="object" name="action_confirm" string="Confirm" class='btn-primary' states="draft" confirm="Are you sure?"/>
 ```
-
-- type="object": means there will be a function defined in the model to handle the button when clicked.
-- name="action_confirm": the name of the function in the model.
-- string="Confirm": the display name.
-- states="draft": when should this button be visible. meaning it'll be visible in draft only or you can set to states="draft,cancel,..."
+- `confirm="Are you sure?"`: asking for confirmation before performing the action.
+- `type="object"`: means there will be a function defined in the model to handle the button when clicked.
+- `name="action_confirm"`: the name of the function in the model.
+- `string="Confirm"`: the display name.
+- `states="draft"`: when should this button be visible. meaning it'll be visible in draft only or you can set to states="draft,cancel,..."
 
 # 3. fields and attributes:
 
@@ -96,7 +96,7 @@ age = fields.Integer(tracking=True)
 
 ## fields:
 
-many2one field: like a selection field with data from another model:
+`many2one field`: like a selection field with data from another model:
 used like:
 
 ```

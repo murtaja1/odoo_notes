@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <form string="">
                 <header>
-                    <button id="button_confirm" type="object" name="action_confirm" string="Confirm" class='btn-primary' states="draft"/>
+                    <button confirm="Are you sure?" id="button_confirm" type="object" name="action_confirm" string="Confirm" class='btn-primary' states="draft"/>
                     <button id="button_done" type="object" name="action_done" string="Mark as Done" class='btn-primary' states="confirm"/>
                     <button id="button_draft" type="object" name="action_draft" string="Set to Draft" class='btn-primary' states="cancel"/>
                     <button id="button_cancel" type="object" name="action_cancel" string="Cancel" states="draft,done,confirm"/>
