@@ -1,6 +1,40 @@
 # odoo_notes
 
-# 1. adding a StatusBar:
+# 1. Adding Menus and Actions:
+## Menus:
+
+### a menu that has no parent is the main model menu. like:
+
+```
+<menuitem id="hospital_management.root_menu" name="Hospital Management" action="hospital_management.hospital_patient_action" />
+```
+
+### a menu that has a parent is the menu that appear in the header after clicking the main menu. Like:
+
+```
+<menuitem id="hospital_management.operations_menu" name="Operations" parent="hospital_management.root_menu" sequence="10"/>
+```
+
+### the following menu is a submenu that appears under the Operations menu. Like:
+
+```
+<menuitem id="hospital_management.patients_menu" name="Patients" action="hospital_management.hospital_patient_action" parent="hospital_management.operations_menu" sequence="10"/>
+```
+
+## Actions:
+
+### an action is triggered after clicking the menu that has an action. like:
+
+```
+<record id="hospital_management.hospital_patient_action" model="ir.actions.act_window">
+    <field name="name">Patients</field>
+    <field name="res_model">hospital.patient</field>
+    <field name="view_mode">tree,form,kanban</field>
+</record>
+```
+
+
+# 2. adding a StatusBar:
 
 1. add a selection field named state in the model with the states like e.g.
 
@@ -49,7 +83,7 @@ def action_confirm(self):
 - string="Confirm": the display name.
 - states="draft": when should this button be visible. meaning it'll be visible in draft only or you can set to states="draft,cancel,..."
 
-# 2. fields and attributes:
+# 3. fields and attributes:
 
 ## attributes:
 
@@ -71,7 +105,7 @@ responsible_id = fields.Many2one('res.partner', string="Responsible")
 
 - 'res.partner': the name of the model.
 
-# 3. Methods Overriding:
+# 4. Methods Overriding:
 
 ## create method:
 
@@ -86,7 +120,7 @@ def create(self, vals):
 
 - vals: the record values that you can update before saving the record.
 
-# 4. Sequential value:
+# 5. Sequential value:
 
 ### it's a value that is auto generated with every record.
 
@@ -143,7 +177,7 @@ def create(self, vals_list):
 <field name="ref"/>
 ```
 
-# 5. Group by and filters:
+# 6. Group by and filters:
 
 ### it's a way of filtering the records or grouping them by a field.
 
@@ -175,14 +209,22 @@ def create(self, vals_list):
     </field>
 </record>
 ```
+
 ## Adding a default group by or filter:
+
 ### add the following field in the action record:
+
 1. group by one level.
+
 - write `search_default` then the name of the group by that you created ex: `group_by_gender` for group by or `name` for filter.
+
 ```
 <field name="context">{'search_default_group_by_gender': 1}</field>
 ```
+
 2. add more default group by:
+
 ```
 <field name="context">{'search_default_group_by_gender': 1, 'search_default_group_by_name': 1}</field>
 ```
+
