@@ -231,6 +231,8 @@ def create(self, vals_list):
 # 7. Adding Domains: 
 ### domain is a conditional filter that is add in the action record.
 
+### age is the field name and 18 is the value and &lt;= is the operator.
+
 ### - Domain with one field: 
 ```
 <field name="domain">[('age', '&lt;=', '18')]</field>
@@ -242,4 +244,15 @@ def create(self, vals_list):
 ### - Domain with one field and 'and' operator: 
 ```
 <field name="domain">[('age', '&lt;=', '18'), ('gender', '=', 'male')]</field>
+```
+# 8. Context:
+## set default value for field in the context.
+### add the following context field in the action record.
+### write default_  followed by the field name then colon then the value.
+```
+<field name="context">{'default_gender': 'male'}</field>
+```
+### add default value for more than one field.
+```
+<field name="context">{'default_gender': 'male', 'default_age': 18}</field>
 ```

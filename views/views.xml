@@ -23,4 +23,22 @@
     </record>
     <menuitem id="hospital_management.patients_kids_menu" name="Kids" action="hospital_management.hospital_patient_kids_action" parent="hospital_management.operations_menu" sequence="20"/>
 
+
+    <record id="hospital_management.hospital_patient_male_action" model="ir.actions.act_window">
+        <field name="name">Male Patients</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('gender', '=', 'male')]</field>
+        <field name="context">{'default_gender': 'male'}</field>
+    </record>
+    <menuitem id="hospital_management.patients_male_menu" name="Male Patients" action="hospital_management.hospital_patient_male_action" parent="hospital_management.operations_menu" sequence="30"/>
+
+    <record id="hospital_management.hospital_patient_female_action" model="ir.actions.act_window">
+        <field name="name">Female Patients</field>
+        <field name="res_model">hospital.patient</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('gender', '=', 'female')]</field>
+        <field name="context">{'default_gender': 'female'}</field>
+    </record>
+    <menuitem id="hospital_management.patients_female_menu" name="Female Patients" action="hospital_management.hospital_patient_female_action" parent="hospital_management.operations_menu" sequence="40"/>
 </odoo>
