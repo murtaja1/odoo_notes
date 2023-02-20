@@ -19,6 +19,7 @@
         <field name="name">Kids</field>
         <field name="res_model">hospital.patient</field>
         <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('age', '&lt;=', '18')]</field>
     </record>
     <menuitem id="hospital_management.patients_kids_menu" name="Kids" action="hospital_management.hospital_patient_kids_action" parent="hospital_management.operations_menu" sequence="20"/>
 

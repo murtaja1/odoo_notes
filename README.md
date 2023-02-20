@@ -3,19 +3,19 @@
 # 1. Adding Menus and Actions:
 ## Menus:
 
-### a menu that has no parent is the main model menu. like:
+### - a menu that has no parent is the main model menu. like:
 
 ```
 <menuitem id="hospital_management.root_menu" name="Hospital Management" action="hospital_management.hospital_patient_action" />
 ```
 
-### a menu that has a parent is the menu that appear in the header after clicking the main menu. Like:
+### - a menu that has a parent is the menu that appear in the header after clicking the main menu. Like:
 
 ```
 <menuitem id="hospital_management.operations_menu" name="Operations" parent="hospital_management.root_menu" sequence="10"/>
 ```
 
-### the following menu is a submenu that appears under the Operations menu. Like:
+### - the following menu is a submenu that appears under the Operations menu. Like:
 
 ```
 <menuitem id="hospital_management.patients_menu" name="Patients" action="hospital_management.hospital_patient_action" parent="hospital_management.operations_menu" sequence="10"/>
@@ -23,7 +23,7 @@
 
 ## Actions:
 
-### an action is triggered after clicking the menu that has an action. like:
+### - an action is triggered after clicking the menu that has an action. like:
 
 ```
 <record id="hospital_management.hospital_patient_action" model="ir.actions.act_window">
@@ -228,3 +228,18 @@ def create(self, vals_list):
 <field name="context">{'search_default_group_by_gender': 1, 'search_default_group_by_name': 1}</field>
 ```
 
+# 7. Adding Domains: 
+### domain is a conditional filter that is add in the action record.
+
+### - Domain with one field: 
+```
+<field name="domain">[('age', '&lt;=', '18')]</field>
+```
+### - Domain with one field and or operator: 
+```
+<field name="domain">['|',('age', '&lt;=', '18'), ('gender', '=', 'male')]</field>
+```
+### - Domain with one field and 'and' operator: 
+```
+<field name="domain">[('age', '&lt;=', '18'), ('gender', '=', 'male')]</field>
+```
