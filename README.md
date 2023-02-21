@@ -98,6 +98,7 @@ age = fields.Integer(tracking=True)
 ## fields:
 
 ### `many2one field`: like a selection field with data from another model:
+
 used like:
 
 ```
@@ -105,13 +106,14 @@ responsible_id = fields.Many2one('res.partner', string="Responsible")
 ```
 
 ### `related='patinet_id.age'`: is an attribute that's added to a related field an that takes its value from a field in the model of `many2one field`. the `age` field is related to another `age` field in another model.
+
 ```
 age = fields.Integer(tracking=True, related='patinet_id.age')
 ```
 
 - 'res.partner': the name of the model.
 
-# 4. Methods Overriding:
+# 4. Methods:
 
 ## create method:
 
@@ -125,6 +127,28 @@ def create(self, vals):
 ```
 
 - vals: the record values that you can update before saving the record.
+
+## onchange method
+
+```
+@api.onchange('patient_id')
+def onchagne_patient_id(self):
+    # action
+```
+
+like:
+
+```
+@api.onchange('patient_id')
+def onchagne_patient_id(self):
+    if self.patient_id:
+        if self.patient_id.gender:
+            self.gender = self.patient_id.gender
+    else:
+        self.gender = ''
+```
+
+- you can add more depends in `@api.onchange` like `@api.onchange('patient_id','age')`
 
 # 5. Sequential value:
 
