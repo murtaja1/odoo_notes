@@ -6,8 +6,9 @@ class HospitalAppointment(models.Model):
     _description = "hospital.appointment"
 
     # tracking attr used to log the change in the chatter.  
-    patinet_id = fields.Many2one('hospital.patient', string='Name')
-    age = fields.Integer(tracking=True, related='patinet_id.age')
+    patient_id = fields.Many2one('hospital.patient', string='Name')
+    age = fields.Integer(tracking=True, related='patient_id.age')
+    gender = fields.Selection([('male', 'Male'), ('female', 'Female'), ('other', 'Other')])
     description = fields.Text()
     ref = fields.Char(name="Reference", default=lambda self: _('New'))
     date = fields.Date('Date')
@@ -35,6 +36,14 @@ class HospitalAppointment(models.Model):
 
     def action_draft(self):
         self.state = 'draft'
+    
+    @api.onchange('patient_id')
+    def onchagne_patient_id(self):
+        if self.patient_id:
+            if self.patient_id.gender:
+                self.gender = self.patient_id.gender
+        else:
+            self.gender = ''
 
     @api.model_create_multi
     def create(self, vals_list):
