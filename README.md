@@ -114,9 +114,22 @@ age = fields.Integer(tracking=True, related='patinet_id.age')
 - 'res.partner': the name of the model.
 
 ### when using `onchange` and making a field `readonly`, you have to add `force_save="1"` to save the value, like
+
 ```
 <field name="gender" readonly="1" force_save="1"/>
+```
 
+## Compute Field:
+
+- it's a readonly field that is calculated by a method and not the user.
+- the method should start with `_compute_` and the `field name`.
+
+```
+appointment_count = fields.Integer(string='Appointment Count', compute="_compute_appointment_count")
+
+def _compute_appointment_count(self):
+    appointment_count = self.env['hospital.appointment'].search_count([('patient_id','=',self.id)])
+    self.appointment_count = appointment_count
 ```
 
 # 4. Methods:

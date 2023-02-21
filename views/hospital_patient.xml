@@ -25,6 +25,7 @@
                         <field name="responsible_id"/>
                         <field name="is_child"/>
                         <field name="age"/>
+                        <field name="appointment_count"/>
                         <field name='gender' invisible="context.get('hide_gender')"/>
                         <field name='capitalize_name'/>
                     </group>

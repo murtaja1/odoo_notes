@@ -14,6 +14,7 @@ class HospitalPatient(models.Model):
     # compute attr means that the field will be filled the function.
     capitalize_name = fields.Char(compute='_compute_capitalize_name')
     ref = fields.Char(name="Reference", default=lambda self: _('New'))
+    appointment_count = fields.Integer(string='Appointment Count', compute="_compute_appointment_count")
 
     responsible_id = fields.Many2one('res.partner', string="Responsible")
     state = fields.Selection(
@@ -39,6 +40,10 @@ class HospitalPatient(models.Model):
 
     def action_draft(self):
         self.state = 'draft'
+    
+    def _compute_appointment_count(self):
+        appointment_count = self.env['hospital.appointment'].search_count([('patient_id','=',self.id)])
+        self.appointment_count = appointment_count
 
     # conditions on a field.
     @api.constrains('is_child', 'age')
