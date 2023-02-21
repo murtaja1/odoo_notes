@@ -1,6 +1,7 @@
 # odoo_notes
 
 # 1. Adding Menus and Actions:
+
 ## Menus:
 
 ### - a menu that has no parent is the main model menu. like:
@@ -32,7 +33,6 @@
     <field name="view_mode">tree,form,kanban</field>
 </record>
 ```
-
 
 # 2. adding a StatusBar (buttons):
 
@@ -77,6 +77,7 @@ def action_confirm(self):
 ```
 <button id="button_confirm" type="object" name="action_confirm" string="Confirm" class='btn-primary' states="draft" confirm="Are you sure?"/>
 ```
+
 - `confirm="Are you sure?"`: asking for confirmation before performing the action.
 - `type="object"`: means there will be a function defined in the model to handle the button when clicked.
 - `name="action_confirm"`: the name of the function in the model.
@@ -139,9 +140,10 @@ def create(self, vals):
 </data>
 ```
 
-- noupdate="1": means if the user has updated it in the UI don't override it when upgrading the module.
-- prefix: means add PH before the sequential value.
-- padding: the length of the digits.
+- `code`: it will be used in `self.env['ir.sequence'].next_by_code('hospital.patient')`.
+- `noupdate="1"`: means if the user has updated it in the UI don't override it when upgrading the module.
+- `prefix`: means add PH before the sequential value.
+- `padding`: the length of the digits.
 
 2. create a ref field in the model.
 
@@ -228,43 +230,195 @@ def create(self, vals_list):
 <field name="context">{'search_default_group_by_gender': 1, 'search_default_group_by_name': 1}</field>
 ```
 
-# 7. Adding Domains: 
+# 7. Adding Domains:
+
 ### domain is a conditional filter that is add in the action record.
 
 ### age is the field name and 18 is the value and &lt;= is the operator.
 
-### Domain with one field: 
+### Domain with one field:
+
 ```
 <field name="domain">[('age', '&lt;=', '18')]</field>
 ```
-### Domain with one field and `or` operator: 
+
+### Domain with one field and `or` operator:
+
 ```
 <field name="domain">['|',('age', '&lt;=', '18'), ('gender', '=', 'male')]</field>
 ```
-### Domain with one field and `and` operator: 
+
+### Domain with one field and `and` operator:
+
 ```
 <field name="domain">[('age', '&lt;=', '18'), ('gender', '=', 'male')]</field>
 ```
+
 # 8. Context:
+
 ## - set default value for field in the context.
+
 ### add the following context field in the action record.
+
 ### write `default_` followed by the field name then colon then the value.
+
 ```
 <field name="context">{'default_gender': 'male'}</field>
 ```
+
 ### add default value for more than one field.
+
 ```
 <field name="context">{'default_gender': 'male', 'default_age': 18}</field>
 ```
+
 ## - hide field based on the context.
+
 ### add the following field in the action record.
+
 ### `hide_` followed by field name
+
 ```
 <field name="context">{'hide_gender': 1}</field>
 ```
+
 ### then add following attribute `invisible="context.get('hide_gender')"` in the form view in the field.
+
 ### the `context.get('hide_gender')` will be replaced by in value in the context in the action record.
+
 ### `hide_gender` is the key in the context.
+
 ```
 <field name='gender' invisible="context.get('hide_gender')"/>
 ```
+
+# 9. Access Rights:
+
+## setting which user can access what.
+
+to set access rights:
+
+- create a security folder.
+- create `ir.model.access.csv` file and add it in the `__manifest__.py` file in `data`.
+- add the following inside `ir.model.access.csv`:
+
+```
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+```
+
+like:
+
+```
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_user,1,1,1,1
+```
+
+- `id`: access_hospital_patient_user
+- `model_id:id`: hospital.patient
+- `group_id:id`: model_hospital_patient
+- `note`: if you want to prevent user from accessing something then set `perm_read,perm_write,perm_create,perm_unlink` to `0,0,0,0` instead of `1,1,1,1` to any of them.
+
+# 10. Views.
+
+## Form View Template
+
+- `header`: where we added the status bar with button.
+- `sheet`: where we added the fields.
+
+```
+<record id="hospital_management.hospital_appointments_form" model="ir.ui.view">
+    <field name="name">Appointments</field>
+    <field name="model">hospital.appointment</field>
+    <field name="arch" type="xml">
+        <form string="">
+            <header>
+                <button confirm="Are you sure?" id="button_confirm" type="object" name="action_confirm" string="Confirm" class='btn-primary' states="draft"/>
+
+            </header>
+            <sheet>
+                <div class="oe_title">
+                    <h1>
+                        <field name="ref" readonly='1'/>
+                    </h1>
+                </div>
+                <group>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="date"/>
+                    <field name="time_checkup"/>
+                </group>
+
+            </sheet>
+        </form>
+    </field>
+</record>
+```
+## Tree View Template
+```
+<record id="hospital_management.hospital_appointment_tree" model="ir.ui.view">
+    <field name="name">hospital.appointment</field>
+    <field name="model">hospital.appointment</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name="ref"/>
+            <field name="name"/>
+        </tree>
+    </field>
+</record> 
+```
+## Kanban View Template
+- add the fields first.
+- then add the fields inside the `template`.
+
+```
+<record id="hospital_management.hospital_appointment_kanban_view" model="ir.ui.view">
+    <field name="name">hospital.appointment.kanban</field>
+    <field name="model">hospital.appointment</field>
+    <field name="arch" type="xml">
+        <kanban>
+            <field name="ref"/>
+            <field name="name"/>
+            <template>
+                <t t-name="kanban-box">
+                    <div t-attf-class="oe_kanban_global_click">
+                        <div class="oe_kanban_details">
+                            <ul>
+                                <li>
+                                    Ref: <field name="ref"/>
+                                </li>
+                                <li>
+                                    Name: <field name="name"/>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </t>
+
+            </template>
+        </kanban>
+    </field>
+</record>
+```
+
+# 11. Chatter and activity:
+
+## to add a chatter to log any change in the form or send a message or set a schedule:
+
+- inherit `['mail.thread', 'mail.activity.mixin']` in your model.
+
+1. `mail.activity.mixin` used to schedule an activity.
+2. `mail.thread` for logs and messages.
+3. add `mail` in `__manifest__.py` in `depends`:
+
+- add the following in the form view bellow the `sheet` tag:
+
+```
+<div class="oe_chatter">
+    <field name="message_follower_ids"/>
+    <field name="activity_ids"/>
+    <field name="message_ids"/>
+</div>
+```
+1. `name="message_follower_ids"`: to add followers.
+2. `name="activity_ids"`: to schedule an activity. 
+3. `name="message_ids"`: to send a message.

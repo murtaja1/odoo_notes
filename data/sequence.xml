@@ -9,7 +9,13 @@
             <field name="prefix">HP</field>
             <field name="padding">5</field>
         </record>
-    
+
+        <record id="hospital_management_appointment_squence" model="ir.sequence">
+            <field name="name">Appointment Sequence</field>
+            <field name="code">hospital.appointment</field>
+            <field name="prefix">OT</field>
+            <field name="padding">5</field>
+        </record>
     </data>
     
 

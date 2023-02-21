@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hospital_management.hospital_appointments_form" model="ir.ui.view">
+        <field name="name">Appointments</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <header>
+                    <button confirm="Are you sure?" id="button_confirm" type="object" name="action_confirm" string="Confirm" class='btn-primary' states="draft"/>
+                    <button id="button_done" type="object" name="action_done" string="Mark as Done" class='btn-primary' states="confirm"/>
+                    <button id="button_draft" type="object" name="action_draft" string="Set to Draft" class='btn-primary' states="cancel"/>
+                    <button id="button_cancel" type="object" name="action_cancel" string="Cancel" states="draft,done,confirm"/>
+                    <field name="state" widget="statusbar" statusbar_visible='draft,confirm,done'/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="ref" readonly='1'/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="date"/>
+                        <field name="time_checkup"/>
+                    </group>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" options="{'post_refresh':'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="hospital_management.hospital_appointment_tree" model="ir.ui.view">
+        <field name="name">hospital.appointment</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="state"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hospital_management.hospital_appointment_kanban_view" model="ir.ui.view">
+        <field name="name">hospital.appointment.kanban</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="date"/>
+                <field name="time_checkup"/>
+                <template>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>
+                                       Ref: <field name="ref"/>
+                                    </li>
+                                    <li>
+                                       Name: <field name="name"/>
+                                    </li>
+                                    <li>
+                                       Description: <field name="description"/>
+                                    </li>
+                                    <li>
+                                       Date: <field name="date"/>
+                                    </li>
+                                    <li>
+                                       Time Checkup: <field name="time_checkup"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </template>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="hospital_management.hospital_appointment_search" model="ir.ui.view">
+        <field name="name">hospital.appointment.search</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" filter_domain="['|', ('name', 'ilike', self), ('ref', 'ilike', self)]"/>
+                <field name="date"/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Date" name="group_by_date" context="{'group_by': 'date'}"/>
+                    <filter string="Name" name="group_by_name" context="{'group_by': 'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>
