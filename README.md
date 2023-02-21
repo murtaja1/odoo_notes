@@ -113,6 +113,12 @@ age = fields.Integer(tracking=True, related='patinet_id.age')
 
 - 'res.partner': the name of the model.
 
+### when using `onchange` and making a field `readonly`, you have to add `force_save="1"` to save the value, like
+```
+<field name="gender" readonly="1" force_save="1"/>
+
+```
+
 # 4. Methods:
 
 ## create method:
