@@ -6,7 +6,8 @@ class HospitalAppointment(models.Model):
     _description = "hospital.appointment"
 
     # tracking attr used to log the change in the chatter.  
-    name = fields.Many2one('hospital.patient', string='Name')
+    patinet_id = fields.Many2one('hospital.patient', string='Name')
+    age = fields.Integer(tracking=True, related='patinet_id.age')
     description = fields.Text()
     ref = fields.Char(name="Reference", default=lambda self: _('New'))
     date = fields.Date('Date')

@@ -19,7 +19,8 @@
                         </h1>
                     </div>
                     <group>
-                        <field name="name"/>
+                        <field name="patinet_id"/>
+                        <field name="age"/>
                         <field name="description"/>
                         <field name="date"/>
                         <field name="time_checkup"/>
@@ -41,7 +42,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="ref"/>
-                <field name="name"/>
+                <field name="patinet_id"/>
                 <field name="state"/>
                 <field name="date"/>
             </tree>
@@ -54,7 +55,7 @@
         <field name="arch" type="xml">
             <kanban>
                 <field name="ref"/>
-                <field name="name"/>
+                <field name="patinet_id"/>
                 <field name="description"/>
                 <field name="date"/>
                 <field name="time_checkup"/>
@@ -67,7 +68,7 @@
                                        Ref: <field name="ref"/>
                                     </li>
                                     <li>
-                                       Name: <field name="name"/>
+                                       Name: <field name="patinet_id"/>
                                     </li>
                                     <li>
                                        Description: <field name="description"/>
@@ -92,12 +93,12 @@
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name" filter_domain="['|', ('name', 'ilike', self), ('ref', 'ilike', self)]"/>
+                <field name="patinet_id" filter_domain="['|', ('patinet_id', 'ilike', self), ('ref', 'ilike', self)]"/>
                 <field name="date"/>
 
                 <group expand="0" string="Group By">
                     <filter string="Date" name="group_by_date" context="{'group_by': 'date'}"/>
-                    <filter string="Name" name="group_by_name" context="{'group_by': 'name'}"/>
+                    <filter string="Name" name="group_by_patinet_id" context="{'group_by': 'patinet_id'}"/>
                 </group>
             </search>
         </field>

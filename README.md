@@ -97,11 +97,16 @@ age = fields.Integer(tracking=True)
 
 ## fields:
 
-`many2one field`: like a selection field with data from another model:
+### `many2one field`: like a selection field with data from another model:
 used like:
 
 ```
 responsible_id = fields.Many2one('res.partner', string="Responsible")
+```
+
+### `related='patinet_id.age'`: is an attribute that's added to a related field an that takes its value from a field in the model of `many2one field`. the `age` field is related to another `age` field in another model.
+```
+age = fields.Integer(tracking=True, related='patinet_id.age')
 ```
 
 - 'res.partner': the name of the model.
@@ -353,7 +358,9 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
     </field>
 </record>
 ```
+
 ## Tree View Template
+
 ```
 <record id="hospital_management.hospital_appointment_tree" model="ir.ui.view">
     <field name="name">hospital.appointment</field>
@@ -364,9 +371,11 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
             <field name="name"/>
         </tree>
     </field>
-</record> 
+</record>
 ```
+
 ## Kanban View Template
+
 - add the fields first.
 - then add the fields inside the `template`.
 
@@ -419,6 +428,7 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
     <field name="message_ids"/>
 </div>
 ```
+
 1. `name="message_follower_ids"`: to add followers.
-2. `name="activity_ids"`: to schedule an activity. 
+2. `name="activity_ids"`: to schedule an activity.
 3. `name="message_ids"`: to send a message.
