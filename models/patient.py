@@ -42,8 +42,9 @@ class HospitalPatient(models.Model):
         self.state = 'draft'
     
     def _compute_appointment_count(self):
-        appointment_count = self.env['hospital.appointment'].search_count([('patient_id','=',self.id)])
-        self.appointment_count = appointment_count
+        for rec in self:
+            appointment_count = self.env['hospital.appointment'].search_count([('patient_id','=',rec.id)])
+            rec.appointment_count = appointment_count
 
     # conditions on a field.
     @api.constrains('is_child', 'age')

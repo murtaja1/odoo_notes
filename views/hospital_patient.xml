@@ -54,6 +54,7 @@
                 <field name="name"/>
                 <field name="responsible_id"/>
                 <field name="age"/>
+                <field name="appointment_count"/>
                 <field name='capitalize_name'/>
             </tree>
         </field>

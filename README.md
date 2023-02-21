@@ -475,3 +475,25 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
 1. `name="message_follower_ids"`: to add followers.
 2. `name="activity_ids"`: to schedule an activity.
 3. `name="message_ids"`: to send a message.
+
+# 12. Errors:
+
+## singleton error:
+
+### `ValueError: Expected singleton: hospital.patient(1, 2, 4, 5, 8, 14, 15)`
+
+- reason: when adding a field in tree view and not iterating over `self`.
+### instead of
+
+```
+def _compute_appointment_count(self):
+        appointment_count = self.env['hospital.appointment'].search_count([('patient_id','=',self.id)])
+        self.appointment_count = appointment_count
+```
+### do this
+```
+def _compute_appointment_count(self):
+    for rec in self:
+        appointment_count = self.env['hospital.appointment'].search_count([('patient_id','=',rec.id)])
+        rec.appointment_count = appointment_count
+```
