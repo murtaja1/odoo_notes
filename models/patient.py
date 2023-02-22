@@ -74,4 +74,10 @@ class HospitalPatient(models.Model):
     def create(self, vals_list):
         for vals in vals_list:
             vals['ref'] = self.env['ir.sequence'].next_by_code('hospital.patient')
-        return super(HospitalPatient, self).create(vals_list)
+        return super(HospitalPatient, self).create(vals_list) 
+
+    @api.model
+    def default_get(self, fields_list):
+        res = super(HospitalPatient, self).default_get(fields_list)
+        res['age'] = 10
+        return res

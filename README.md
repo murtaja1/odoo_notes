@@ -175,6 +175,17 @@ def onchagne_patient_id(self):
 
 - you can add more depends in `@api.onchange` like `@api.onchange('patient_id','age')`
 
+## default_get method:
+### it's a method that gets called when clicking on `create button` (not save button). 
+```
+@api.model
+def default_get(self, fields_list):
+    res = super(HospitalPatient, self).default_get(fields_list)
+    res['age'] = 10
+    return res
+```
+### `res` is python dict.
+
 # 5. Sequential value:
 
 ### it's a value that is auto generated with every record.
