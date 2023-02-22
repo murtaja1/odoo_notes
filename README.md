@@ -497,3 +497,49 @@ def _compute_appointment_count(self):
         appointment_count = self.env['hospital.appointment'].search_count([('patient_id','=',rec.id)])
         rec.appointment_count = appointment_count
 ```
+# 13. Wizard:
+## it's a dialog that's created using `models.TransientModel`, to create a wizard:
+1. create a folder named `wizard`.
+2. inside `wizard`, add your model `model_name.py` and views `view_name.xml`.
+3. add the model `access rights` in security.
+4. add your `xml` files in the `__manifest__.py data` after the `data section`.
+### the `TransientModel` is not stored in the database.
+### example:
+```
+class CreateAppointmentWizard(models.TransientModel):
+    _name = "hospital.create.appointment.wizard"
+    _description = "hospital.create.appointment.wizard"
+
+    patient_id = fields.Many2one('hospital.patient', string='Patient')
+    name = fields.Char()
+
+    def action_create(self):
+        # action
+```
+```
+<record id="hospital_create_appointment_wizard_form" model="ir.ui.view">
+    <field name="name">hospital.create.appointment.wizard.form</field>
+    <field name="model">hospital.create.appointment.wizard</field>
+    <field name="arch" type="xml">
+        <form>
+            <group>
+                <field name="patient_id"/>
+                <field name="name"/>
+            </group>
+            <footer>
+                <button id="button_create" type="object" name="action_create" string="Create" class='btn-primary'/>
+                <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z"/>
+            </footer>
+        </form>
+    </field>
+</record>
+
+<record id="hospital_management.hospital_create_appointment_wizard_action" model="ir.actions.act_window">
+    <field name="name">Create Appointments</field>
+    <field name="res_model">hospital.create.appointment.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="hospital_create_appointment_wizard_form"/>
+    <field name="target">new</field>
+</record>
+```
+## note: the `menuItem` should not be added in the wizard, but in the views folder.
