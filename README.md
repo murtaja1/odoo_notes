@@ -64,7 +64,9 @@ state = fields.Selection(
 - statusbar_visible='draft,confirm,done': show only the following states.
 
 ## Adding buttons in the status bar:
-
+### there are tow types of buttons
+## 1. Object Button: 
+### calls a function in the model
 1. we add a function in the model like:
 
 ```
@@ -83,6 +85,11 @@ def action_confirm(self):
 - `name="action_confirm"`: the name of the function in the model.
 - `string="Confirm"`: the display name.
 - `states="draft"`: when should this button be visible. meaning it'll be visible in draft only or you can set to states="draft,cancel,..."
+## 2. Action Button:
+### calls an action record.
+```
+<button id="button_create_appointment" type="action" name="%(<action_id>)d" string="Create Appointment" class='btn-primary'/>
+```
 
 # 3. fields and attributes:
 ## attributes:
@@ -541,6 +548,7 @@ class CreateAppointmentWizard(models.TransientModel):
     <field name="target">new</field>
 </record>
 ```
+`<field name="target">new</field>` used to get a popup instead of a new window
 ### note: the `menuItem` should not be added in the wizard, but in the views folder.
 
 # 14. Models:

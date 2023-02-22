@@ -13,6 +13,7 @@
                     <button id="button_draft" type="object" name="action_draft" string="Set to Draft" class='btn-primary' states="cancel"/>
                     <button id="button_cancel" type="object" name="action_cancel" string="Cancel" states="draft,done,confirm"/>
                     <field name="state" widget="statusbar" statusbar_visible='draft,confirm,done'/>
+                    <button id="button_create_appointment" type="action" name="%(hospital_create_appointment_wizard_action)d" string="Create Appointment" class='btn-primary'/>
                 </header>
                 <sheet>
                     <div class="oe_title">
