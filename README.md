@@ -85,7 +85,6 @@ def action_confirm(self):
 - `states="draft"`: when should this button be visible. meaning it'll be visible in draft only or you can set to states="draft,cancel,..."
 
 # 3. fields and attributes:
-
 ## attributes:
 
 tracking=True: means log any change to this field in the chatter.
@@ -542,4 +541,7 @@ class CreateAppointmentWizard(models.TransientModel):
     <field name="target">new</field>
 </record>
 ```
-## note: the `menuItem` should not be added in the wizard, but in the views folder.
+### note: the `menuItem` should not be added in the wizard, but in the views folder.
+
+# 14. Models:
+### `_rec_name = 'field name'`: it's what will be shown in the header title.

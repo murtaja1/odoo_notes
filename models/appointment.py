@@ -3,6 +3,7 @@ from odoo import models, fields, api, _
 class HospitalAppointment(models.Model):
     _name = "hospital.appointment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _rec_name = 'patient_id'
     _description = "hospital.appointment"
 
     # tracking attr used to log the change in the chatter.  

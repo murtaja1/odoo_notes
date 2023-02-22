@@ -47,8 +47,9 @@
         <field name="res_model">hospital.appointment</field>
         <field name="view_mode">tree,form,kanban</field>
     </record>
-    <menuitem id="hospital_management.appointments_menu" name="Appointments" action="hospital_management.hospital_appointment_action" parent="hospital_management.root_menu" sequence="50"/>
-
-    <menuitem id="hospital_management.create_appointments_wizard_menu" name="Create Appointments" action="hospital_management.hospital_create_appointment_wizard_action" parent="hospital_management.appointments_menu" sequence="60"/>
+    <menuitem id="hospital_management.appointments_root_menu" name="Appointments" parent="hospital_management.root_menu" sequence="50"/>
+    <menuitem id="hospital_management.appointments_menu" name="Appointments" action="hospital_management.hospital_appointment_action" parent="hospital_management.appointments_root_menu" sequence="10"/>
+    
+    <menuitem id="hospital_management.create_appointments_wizard_menu" name="Create Appointments" action="hospital_management.hospital_create_appointment_wizard_action" parent="hospital_management.appointments_root_menu" sequence="20"/>
 
 </odoo>
