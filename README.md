@@ -34,6 +34,44 @@
 </record>
 ```
 
+## Return Action From Python Code:
+### Return form view after creating a record:
+```
+rec = self.env[<model name>].create(<dict of the values>)
+return {
+    'name': _(<string>),
+    'type': 'ir.actions.act_window',
+    'view_mode':"form",
+    'res_model':<model name>,
+    'res_id': rec.id
+}
+```
+### Return tree view:
+`method 1`:
+```
+action = self.env.ref(<action id>).read()[0]
+action['domain'] = [(<field name>,'=',self.<value>)]
+return action
+```
+`method 2`:
+
+```
+action = self.env["ir.actions.act_window"]._for_xml_id(<action id>)
+action['domain'] = [(<field name>,'=',self.<value>)]
+return action
+```
+`method 3`:
+```
+return {
+    'name': _(<string>),
+    'type': 'ir.actions.act_window',
+    'view_type':'form',
+    'view_mode':"tree,form",
+    'res_model':<model name>,
+    'domain': [(<field name>,'=',self.<value>)]
+}
+```
+
 # 2. adding a StatusBar (buttons):
 
 1. add a selection field named state in the model with the states like e.g.
@@ -568,5 +606,5 @@ class CreateAppointmentWizard(models.TransientModel):
 # 15. Database Operations:
 ## create a new record:
 ```
-self.env[<model_name>].create(<dict>)
+self.env[<model_name>].create(<dict of the values>)
 ```
