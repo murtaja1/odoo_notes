@@ -7,7 +7,7 @@
             <form>
                 <group>
                     <field name="patient_id"/>
-                    <field name="name"/>
+                    <field name="date"/>
                 </group>
                 <footer>
                     <button id="button_create" type="object" name="action_create" string="Create" class='btn-primary'/>

@@ -6,7 +6,11 @@ class CreateAppointmentWizard(models.TransientModel):
     _description = "hospital.create.appointment.wizard"
 
     patient_id = fields.Many2one('hospital.patient', string='Patient')
-    name = fields.Char()
+    date = fields.Date()
 
     def action_create(self):
-        raise ValidationError(_('Create clicked!'))
+        vals = {
+            'patient_id': self.patient_id.id,
+            'date': self.date
+        }
+        self.env['hospital.appointment'].create(vals)

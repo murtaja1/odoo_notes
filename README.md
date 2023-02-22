@@ -65,7 +65,7 @@ state = fields.Selection(
 
 ## Adding buttons in the status bar:
 ### there are tow types of buttons
-## 1. Object Button: 
+## 1. Object Button:
 ### calls a function in the model
 1. we add a function in the model like:
 
@@ -176,7 +176,7 @@ def onchagne_patient_id(self):
 - you can add more depends in `@api.onchange` like `@api.onchange('patient_id','age')`
 
 ## default_get method:
-### it's a method that gets called when clicking on `create button` (not save button). 
+### it's a method that gets called when clicking on `create button` (not save button).
 ```
 @api.model
 def default_get(self, fields_list):
@@ -564,3 +564,9 @@ class CreateAppointmentWizard(models.TransientModel):
 
 # 14. Models:
 ### `_rec_name = 'field name'`: it's what will be shown in the header title.
+
+# 15. Database Operations:
+## create a new record:
+```
+self.env[<model_name>].create(<dict>)
+```
