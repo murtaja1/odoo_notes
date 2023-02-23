@@ -17,6 +17,7 @@
         'wizard/search_appointment_wizard.xml',
         'views/sale.xml',
         'views/views.xml',
+        'views/doctor_view.xml',
         'views/hospital_patient.xml',
         'views/appointment_view.xml',
     ],

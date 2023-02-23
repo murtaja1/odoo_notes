@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- form view for hospital.doctor -->
+    <record id="hospital_management.hospital_doctor_form" model="ir.ui.view">
+        <field name="name">doctors</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="age"/>
+                        <field name='gender' />
+                    </group>
+
+                </sheet>
+                <!-- logging and chatter where new changes will be recorded if set 'tracking to true' in the model field-->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <!-- to add followers -->
+                    <field name="activity_ids"/>
+                    <!-- to schedule an activity. -->
+                    <field name="message_ids" options="{'post_refresh':'recipients'}"/>
+                    <!-- to send a message -->
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- tree view for hospital.doctor -->
+    <record id="hospital_management.hospital_doctor_tree" model="ir.ui.view">
+        <field name="name">hospital.doctor.tree</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <tree sample="1">
+                <field name="name"/>
+                <field name="age"/>
+                <field name="gender"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- kanban view for hospital.doctor -->
+    <record id="hospital_management.hospital_doctor_kanban_view" model="ir.ui.view">
+        <field name="name">hospital.doctor.kanban</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <kanban sample="1">
+                <field name="name"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <template>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>
+                                       Name: <field name="name"/>
+                                    </li>
+                                    <li>
+                                       Age: <field name="age"/>
+                                    </li>
+                                    <li>
+                                       Gender: <field name="gender"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+
+                </template>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- a search view "filter" -->
+    <record id="hospital_management.hospital_doctor_search" model="ir.ui.view">
+        <field name="name">hospital.doctor.search</field>
+        <field name="model">hospital.doctor</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- when filtering, filter for name or ref in the same time without the user choosing which one to filter for! -->
+                <!-- | means or -->
+                <field name="name" filter_domain="[('name', 'ilike', self)]"/>
+                <field name="age"/>
+                <filter string="Male" name="filter_male" domain="[('gender', '=', 'male')]"/>
+                <filter string="Female" name="filter_female" domain="[('gender', '=', 'female')]"/>
+                <filter string="Other" name="filter_other" domain="[('gender', '=', 'other')]"/>
+                <!-- to add a default group filter in the group by dropdown -->
+                <group expand="0" string="Group By">
+                    <filter string="Gender" name="group_by_gender" context="{'group_by': 'gender'}"/>
+                    <filter string="Name" name="group_by_name" context="{'group_by': 'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>

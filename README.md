@@ -151,6 +151,7 @@ def action_confirm(self):
 # 3. fields and attributes:
 
 ## attributes:
+### `sample="1"`: an attribute that's add to the `form or kanban` views to show sample data.
 
 tracking=True: means log any change to this field in the chatter.
 used like:
