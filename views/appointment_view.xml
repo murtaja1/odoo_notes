@@ -48,7 +48,9 @@
                 <field name="ref"/>
                 <field name="patient_id"/>
                 <field name="state"/>
-                <field name="date"/>
+                <field name="description" optional="show"/>
+                <field name="time_checkup" optional="hide"/>
+                <field name="date" optional="hide"/>
             </tree>
         </field>
     </record>

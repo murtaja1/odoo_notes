@@ -151,7 +151,10 @@ def action_confirm(self):
 # 3. fields and attributes:
 
 ## attributes:
+
 ### `sample="1"`: an attribute that's add to the `form or kanban` views to show sample data.
+
+### `optional="show" or "hide"`: added to the tree field to either show or hide the field, to make the field dynamic and let the user check or uncheck to show the field.
 
 tracking=True: means log any change to this field in the chatter.
 used like:
