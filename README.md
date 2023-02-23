@@ -552,6 +552,10 @@ def _compute_appointment_count(self):
         appointment_count = self.env['hospital.appointment'].search_count([('patient_id','=',rec.id)])
         rec.appointment_count = appointment_count
 ```
+### Menu not visible reasons:
+- file not added in the `__manifest__.py` file.
+- `access rights` not set. check this by becoming `superuser`.
+-  if a menu is not a parent menu and doesn't have an action then it will be invisible.
 # 13. Wizard:
 ## it's a dialog that's created using `models.TransientModel`, to create a wizard:
 1. create a folder named `wizard`.

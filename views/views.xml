@@ -52,4 +52,7 @@
     
     <menuitem id="hospital_management.create_appointments_wizard_menu" name="Create Appointments" action="hospital_management.hospital_create_appointment_wizard_action" parent="hospital_management.appointments_root_menu" sequence="20"/>
 
+    <menuitem id="hospital_management.search_appointments_wizard_menu" name="Search Appointments" 
+    action="hospital_management.hospital_search_appointment_wizard_action" parent="hospital_management.appointments_root_menu" sequence="20"/>
+
 </odoo>
