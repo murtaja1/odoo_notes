@@ -10,6 +10,7 @@ class HospitalPatient(models.Model):
     name = fields.Char(tracking=True)
     is_child = fields.Boolean(tracking=True)
     age = fields.Integer(tracking=True)
+    image = fields.Binary(string='image')
     gender = fields.Selection([('male', 'Male'), ('female', 'Female'), ('other', 'Other')])
     # compute attr means that the field will be filled the function.
     capitalize_name = fields.Char(compute='_compute_capitalize_name')

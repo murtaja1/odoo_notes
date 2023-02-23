@@ -35,7 +35,9 @@
 ```
 
 ## Return Action From Python Code:
+
 ### Return form view after creating a record:
+
 ```
 rec = self.env[<model name>].create(<dict of the values>)
 return {
@@ -46,13 +48,17 @@ return {
     'res_id': rec.id
 }
 ```
+
 ### Return tree view:
+
 `method 1`:
+
 ```
 action = self.env.ref(<action id>).read()[0]
 action['domain'] = [(<field name>,'=',self.<value>)]
 return action
 ```
+
 `method 2`:
 
 ```
@@ -60,7 +66,9 @@ action = self.env["ir.actions.act_window"]._for_xml_id(<action id>)
 action['domain'] = [(<field name>,'=',self.<value>)]
 return action
 ```
+
 `method 3`:
+
 ```
 return {
     'name': _(<string>),
@@ -102,9 +110,13 @@ state = fields.Selection(
 - statusbar_visible='draft,confirm,done': show only the following states.
 
 ## Adding buttons in the status bar:
+
 ### there are tow types of buttons
+
 ## 1. Object Button:
+
 ### calls a function in the model
+
 1. we add a function in the model like:
 
 ```
@@ -125,14 +137,19 @@ def action_confirm(self):
 - `states="draft"`: when should this button be visible. meaning it'll be visible in draft only or you can set to states="draft,cancel,..."
 
 ## Add a button in tree view:
+
 ### same way you add it in form view but, `state` and `id` can't be add in tree view.
+
 ## 2. Action Button:
+
 ### calls an action record.
+
 ```
 <button id="button_create_appointment" type="action" name="%(<action_id>)d" string="Create Appointment" class='btn-primary'/>
 ```
 
 # 3. fields and attributes:
+
 ## attributes:
 
 tracking=True: means log any change to this field in the chatter.
@@ -164,6 +181,13 @@ age = fields.Integer(tracking=True, related='patinet_id.age')
 
 ```
 <field name="gender" readonly="1" force_save="1"/>
+```
+
+### image field:
+
+```
+image = fields.Binary(string='image')
+<field name="image" widget="image" class="oe_avatar"/>
 ```
 
 ## Compute Field:
@@ -217,7 +241,9 @@ def onchagne_patient_id(self):
 - you can add more depends in `@api.onchange` like `@api.onchange('patient_id','age')`
 
 ## default_get method:
+
 ### it's a method that gets called when clicking on `create button` (not save button).
+
 ```
 @api.model
 def default_get(self, fields_list):
@@ -225,6 +251,7 @@ def default_get(self, fields_list):
     res['age'] = 10
     return res
 ```
+
 ### `res` is python dict.
 
 # 5. Sequential value:
@@ -541,6 +568,7 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
 ### `ValueError: Expected singleton: hospital.patient(1, 2, 4, 5, 8, 14, 15)`
 
 - reason: when adding a field in tree view and not iterating over `self`.
+
 ### instead of
 
 ```
@@ -548,25 +576,35 @@ def _compute_appointment_count(self):
         appointment_count = self.env['hospital.appointment'].search_count([('patient_id','=',self.id)])
         self.appointment_count = appointment_count
 ```
+
 ### do this
+
 ```
 def _compute_appointment_count(self):
     for rec in self:
         appointment_count = self.env['hospital.appointment'].search_count([('patient_id','=',rec.id)])
         rec.appointment_count = appointment_count
 ```
+
 ### Menu not visible reasons:
+
 - file not added in the `__manifest__.py` file.
 - `access rights` not set. check this by becoming `superuser`.
--  if a menu is not a parent menu and doesn't have an action then it will be invisible.
+- if a menu is not a parent menu and doesn't have an action then it will be invisible.
+
 # 13. Wizard:
+
 ## it's a dialog that's created using `models.TransientModel`, to create a wizard:
+
 1. create a folder named `wizard`.
 2. inside `wizard`, add your model `model_name.py` and views `view_name.xml`.
 3. add the model `access rights` in security.
 4. add your `xml` files in the `__manifest__.py data` after the `data section`.
+
 ### the `TransientModel` is not stored in the database.
+
 ### example:
+
 ```
 class CreateAppointmentWizard(models.TransientModel):
     _name = "hospital.create.appointment.wizard"
@@ -578,6 +616,7 @@ class CreateAppointmentWizard(models.TransientModel):
     def action_create(self):
         # action
 ```
+
 ```
 <record id="hospital_create_appointment_wizard_form" model="ir.ui.view">
     <field name="name">hospital.create.appointment.wizard.form</field>
@@ -604,14 +643,19 @@ class CreateAppointmentWizard(models.TransientModel):
     <field name="target">new</field>
 </record>
 ```
+
 `<field name="target">new</field>` used to get a popup instead of a new window
+
 ### note: the `menuItem` should not be added in the wizard, but in the views folder.
 
 # 14. Models:
+
 ### `_rec_name = 'field name'`: it's what will be shown in the header title.
 
 # 15. Database Operations:
+
 ## create a new record:
+
 ```
 self.env[<model_name>].create(<dict of the values>)
 ```
