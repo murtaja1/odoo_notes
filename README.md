@@ -123,6 +123,9 @@ def action_confirm(self):
 - `name="action_confirm"`: the name of the function in the model.
 - `string="Confirm"`: the display name.
 - `states="draft"`: when should this button be visible. meaning it'll be visible in draft only or you can set to states="draft,cancel,..."
+
+## Add a button in tree view:
+### same way you add it in form view but, `state` and `id` can't be add in tree view.
 ## 2. Action Button:
 ### calls an action record.
 ```
