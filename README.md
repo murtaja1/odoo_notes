@@ -155,17 +155,21 @@ def action_confirm(self):
 ### `sample="1"`: an attribute that's add to the `form or kanban` views to show sample data.
 
 ### `optional="show" or "hide"`: added to the tree field to either show or hide the field, to make the field dynamic and let the user check or uncheck to show the field.
-### `default_order="<field_name>,<field_name>... desc or asc"`: add in the kanban or tree... to order the records.
-### `multi_edit="1"`: added to `tree view` to enable editing more than one record at the same time. 
 
+### `default_order="<field_name>,<field_name>... desc or asc"`: add in the kanban or tree... to order the records.
+
+### `multi_edit="1"`: added to `tree view` to enable editing more than one record at the same time.
 
 ## Fields Attributes:
+
 ### `tracking=True`: means log any change to this field in the chatter.
+
 used like:
 
 ```
 age = fields.Integer(tracking=True)
 ```
+
 ## fields:
 
 ### `many2one field`: like a selection field with data from another model:
@@ -209,6 +213,52 @@ def _compute_appointment_count(self):
     appointment_count = self.env['hospital.appointment'].search_count([('patient_id','=',self.id)])
     self.appointment_count = appointment_count
 ```
+
+## `One2many field:`
+
+### it's a relational field that contains the ids of other model related its model.
+
+1. add a `Many2one` field to the model that you to relate to.
+
+```
+appointment_id = fields.Many2one('<model name that has the One2many field>')
+```
+
+2. add the `One2many` field in your model, end the name with `_ids`.
+
+```
+medicine_line_ids = fields.One2many('<model name>','appointment_id',string="Medicine Lines")
+```
+
+### you can add it in the notebook:
+
+```
+<page name="medicine_lines" string="Medicine Lines">
+    <field name="medicine_line_ids">
+        <tree editable="bottom">
+            <field name="name"/>
+            <field name="qty"/>
+        </tree>
+        <form>
+            <group>
+                <group>
+                    <field name="name"/>
+                </group>
+                <group>
+                    <field name="qty"/>
+                </group>
+            </group>
+        </form>
+    </field>
+</page>
+```
+
+- `editable="top" or "bottom"`: added to tree view to make the lines editable without opening the form view. `top` means create new record at the top, `bottom` is the opposite.
+- `create="0"`: added to tree view to prevent the user from creating new records.
+- `delete="0"`: added to tree view to prevent the user from deleting the records.
+- `edit="0"`: added to tree view to prevent the user from updating the records.
+
+### `note`: if there is a view related to the model and you don't add a view in the notebook then that view will be uses.
 
 # 4. Methods:
 
@@ -493,8 +543,11 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
     </field>
 </record>
 ```
+
 ## Notebook and pages:
+
 - it's added inside the `form view`.
+
 ```
 <notebook>
     <page name="doctor_prescription" string="Prescription">
@@ -672,6 +725,7 @@ class CreateAppointmentWizard(models.TransientModel):
 # 14. Models:
 
 ### `_rec_name = 'field name'`: it's what will be shown in the header title and in the `many2one` field.
+
 ### `_order="<field_name>,<field_name>... desc or asc"`: to order the records.
 
 # 15. Database Operations:

@@ -16,6 +16,7 @@ class HospitalPatient(models.Model):
     capitalize_name = fields.Char(compute='_compute_capitalize_name')
     ref = fields.Char(name="Reference", default=lambda self: _('New'))
     appointment_count = fields.Integer(string='Appointment Count', compute="_compute_appointment_count")
+    appointment_ids = fields.One2many('hospital.appointment', 'patient_id') 
 
     responsible_id = fields.Many2one('res.partner', string="Responsible")
     state = fields.Selection(

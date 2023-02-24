@@ -16,6 +16,7 @@ class HospitalAppointment(models.Model):
     ref = fields.Char(name="Reference", default=lambda self: _('New'))
     date = fields.Date('Date')
     time_checkup = fields.Datetime()
+    medicine_line_ids = fields.One2many('hospital.appointment.medicine','appointment_id',string="Medicine Lines")
     state = fields.Selection(
         selection=[
             ('draft', 'Draft'),
@@ -53,3 +54,11 @@ class HospitalAppointment(models.Model):
         for vals in vals_list:
             vals['ref'] = self.env['ir.sequence'].next_by_code('hospital.appointment')
         return super(HospitalAppointment, self).create(vals_list)
+    
+class HospitalAppointmentMedicine(models.Model):
+    _name = "hospital.appointment.medicine"
+    _description = "hospital.appointment.medicine"
+
+    name = fields.Char(string="Name", required=True)
+    qty = fields.Integer(string='Quantity')
+    appointment_id = fields.Many2one('hospital.appointment')
