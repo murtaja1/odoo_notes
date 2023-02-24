@@ -163,13 +163,7 @@ def action_confirm(self):
 ## Fields Attributes:
 
 ### `tracking=True`: means log any change to this field in the chatter.
-
-used like:
-
-```
-age = fields.Integer(tracking=True)
-```
-
+### `copy=False`: to not copy when clicking the duplicate method to copy the record.
 ## fields:
 
 ### `many2one field`: like a selection field with data from another model:
@@ -262,7 +256,7 @@ medicine_line_ids = fields.One2many('<model name>','appointment_id',string="Medi
 
 # 4. Methods:
 
-## create method:
+## `create method:`
 
 - to override the create method use the following code block.
 
@@ -275,7 +269,7 @@ def create(self, vals):
 
 - vals: the record values that you can update before saving the record.
 
-## onchange method
+## `onchange method`
 
 ```
 @api.onchange('patient_id')
@@ -297,7 +291,7 @@ def onchagne_patient_id(self):
 
 - you can add more depends in `@api.onchange` like `@api.onchange('patient_id','age')`
 
-## default_get method:
+## `default_get method:`
 
 ### it's a method that gets called when clicking on `create button` (not save button).
 
@@ -310,6 +304,17 @@ def default_get(self, fields_list):
 ```
 
 ### `res` is python dict.
+
+## `copy method`:
+### it's a method that gets called when clicking the `duplicate` button.
+```
+def copy(self, default=None):
+    default = default or {}
+    if not default.get(<field name>):
+        default[<field name>] = _("%s (Copy)", self.<field name>)
+    default[<field name>] = 'this record is copied!'
+    return super(<class name>, self).copy(default)
+```
 
 # 5. Sequential value:
 

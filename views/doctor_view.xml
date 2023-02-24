@@ -10,9 +10,14 @@
                 <sheet>
                     <field name="image" widget="image" class="oe_avatar"/>
                     <group>
-                        <field name="name"/>
-                        <field name="age"/>
-                        <field name='gender' />
+                        <group>
+                            <field name="name"/>
+                            <field name="age"/>
+                        </group>
+                        <group>
+                            <field name="note"/>
+                            <field name='gender' />
+                        </group>
                     </group>
                     <notebook>
                         <page name="doctor_prescription" string="Prescription">
