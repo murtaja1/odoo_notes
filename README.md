@@ -156,6 +156,7 @@ def action_confirm(self):
 
 ### `optional="show" or "hide"`: added to the tree field to either show or hide the field, to make the field dynamic and let the user check or uncheck to show the field.
 ### `default_order="<field_name>,<field_name>... desc or asc"`: add in the kanban or tree... to order the records.
+### `multi_edit="1"`: added to `tree view` to enable editing more than one record at the same time. 
 
 
 ## Fields Attributes:

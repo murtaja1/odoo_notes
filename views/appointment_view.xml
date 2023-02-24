@@ -41,7 +41,7 @@
         <field name="name">hospital.appointment</field>
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree multi_edit="1">
                 <header>
                     <button type="object" name="action_done" string="Mark as Done" class='btn-primary'/>
                 </header>
