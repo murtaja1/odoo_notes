@@ -324,6 +324,15 @@ def unlink(self):
     return super(HospitalAppointment, self).unlink()
 ```
 
+## `method with constrains decorator`:
+### used to prevent the user from doing something wrong, and gets called when saving the record.
+```
+@api.constrains(<field name>, <field name>)
+def _check_child_age(self):
+    for rec in self:
+        # action
+```
+
 
 # 5. Sequential value:
 
