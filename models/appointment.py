@@ -1,4 +1,5 @@
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 class HospitalAppointment(models.Model):
     _name = "hospital.appointment"
@@ -54,6 +55,11 @@ class HospitalAppointment(models.Model):
         for vals in vals_list:
             vals['ref'] = self.env['ir.sequence'].next_by_code('hospital.appointment')
         return super(HospitalAppointment, self).create(vals_list)
+    
+    def unlink(self):
+        if self.state == 'done':
+            raise ValidationError(_('you can\'t delete this record because it is in done state!'))
+        return super(HospitalAppointment, self).unlink()
     
 class HospitalAppointmentMedicine(models.Model):
     _name = "hospital.appointment.medicine"

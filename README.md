@@ -316,6 +316,15 @@ def copy(self, default=None):
     return super(<class name>, self).copy(default)
 ```
 
+## `unlink (delete) method`:
+```
+def unlink(self):
+    if self.state == 'done':
+        raise ValidationError(_('you can\'t delete this record because it is in done state!'))
+    return super(HospitalAppointment, self).unlink()
+```
+
+
 # 5. Sequential value:
 
 ### it's a value that is auto generated with every record.
