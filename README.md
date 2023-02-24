@@ -163,7 +163,9 @@ def action_confirm(self):
 ## Fields Attributes:
 
 ### `tracking=True`: means log any change to this field in the chatter.
+
 ### `copy=False`: to not copy when clicking the duplicate method to copy the record.
+
 ## fields:
 
 ### `many2one field`: like a selection field with data from another model:
@@ -306,7 +308,9 @@ def default_get(self, fields_list):
 ### `res` is python dict.
 
 ## `copy method`:
+
 ### it's a method that gets called when clicking the `duplicate` button.
+
 ```
 def copy(self, default=None):
     default = default or {}
@@ -317,6 +321,7 @@ def copy(self, default=None):
 ```
 
 ## `unlink (delete) method`:
+
 ```
 def unlink(self):
     if self.state == 'done':
@@ -325,15 +330,20 @@ def unlink(self):
 ```
 
 ## `method with constrains decorator`:
+
 ### used to prevent the user from doing something wrong, and gets called when saving the record.
+
 ```
 @api.constrains(<field name>, <field name>)
 def _check_child_age(self):
     for rec in self:
         # action
 ```
+
 ## `name_get method`:
+
 ### used when you need to make the title of the record consist of more than one field or different field other than `name field` in form view or when choosing a record in `many2one field`.
+
 ```
 def name_get(self):
     res = []
@@ -342,7 +352,6 @@ def name_get(self):
         res.append((rec.id, name))
     return res
 ```
-
 
 # 5. Sequential value:
 
@@ -767,4 +776,74 @@ class CreateAppointmentWizard(models.TransientModel):
 
 ```
 self.env[<model_name>].create(<dict of the values>)
+```
+
+# 16. Inherit and add to existing Module:
+
+### add the module as a `depend` in `__manifest__.py` file.
+
+## `Add menu to existing Module`:
+
+- get the `external id or xml id` by going to `setting>technical>menu items` and search for the menu.
+- add the `id` as the `parent` of the menu.
+
+```
+<menuitem id="sale_appointments_menu" name="Appointments"
+parent="sale.sale_order_menu" action="hospital_management.hospital_appointment_action" sequence="20"/>
+```
+
+## `Add new field to existing Module`:
+
+1. add the field to the model.
+
+```
+class SaleOrder(models.Model):
+    # we are only inheriting and not creating new model
+    _inherit = 'sale.order'
+
+    sale_description = fields.Char()
+```
+
+2. add it to the form view record.
+
+```
+<record id="sale_order_description_form_inherit" model="ir.ui.view">
+    <field name="name">sale.order.inherited</field>
+    <field name="model">sale.order</field>
+    <!-- ref = the form view 'External ID'-->
+    <field name="inherit_id" ref="sale.view_order_form"/>
+    <field name="arch" type="xml">
+        <!-- you can use either the field or xpath to add to an inherited form view -->
+
+        <!-- means after the partner_id field -->
+        <!-- <field name="partner_id" position="after">
+            <field name='sale_description'/>
+        </field> -->
+
+        <!-- means there is a field name partner_id -->
+        <!-- you can also add after a div tag or anything instead of field -->
+        <xpath expr="//field[@name='partner_id']" position="after">
+            <field name="sale_description"/>
+        </xpath>
+    </field>
+</record>
+```
+### add it to the tree view record.
+```
+<record id="sale_order_description_tree_inherit" model="ir.ui.view">
+    <field name="name">sale.order.inherited</field>
+    <field name="model">sale.order</field>
+    <!-- ref = the tree view 'External ID'-->
+    <!-- get the 'External ID' by clicking the arrow of Inherited View to go to the main tree view -->
+    <field name="inherit_id" ref="sale.view_quotation_tree"/>
+    <field name="arch" type="xml">
+        <!-- you can use either the field or xpath to add to an inherited form view -->
+
+        <!-- means there is a field name partner_id -->
+        <!-- you can also add after a div tag or anything instead of field -->
+        <xpath expr="//field[@name='partner_id']" position="after">
+            <field name="sale_description"/>
+        </xpath>
+    </field>
+</record>
 ```

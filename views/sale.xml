@@ -39,5 +39,8 @@
                 </xpath>
             </field>
         </record>
+        <menuitem id="sale_appointments_menu" name="Appointments" 
+        parent="sale.sale_order_menu" action="hospital_management.hospital_appointment_action" sequence="20"/>
+
     </data>
 </odoo>
