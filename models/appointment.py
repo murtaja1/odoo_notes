@@ -5,9 +5,11 @@ class HospitalAppointment(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'patient_id'
     _description = "hospital.appointment"
+    _order = 'doctor_id,id desc'
 
     # tracking attr used to log the change in the chatter.  
-    patient_id = fields.Many2one('hospital.patient', string='Name')
+    patient_id = fields.Many2one('hospital.patient', string='Patient')
+    doctor_id = fields.Many2one('hospital.doctor', string='Doctor')
     age = fields.Integer(tracking=True, related='patient_id.age')
     gender = fields.Selection([('male', 'Male'), ('female', 'Female'), ('other', 'Other')])
     description = fields.Text()

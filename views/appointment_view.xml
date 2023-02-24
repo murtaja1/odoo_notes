@@ -20,6 +20,7 @@
                     </div>
                     <group>
                         <field name="patient_id"/>
+                        <field name="doctor_id"/>
                         <field name="age"/>
                         <field name="gender" readonly="1" force_save="1"/>
                         <field name="date"/>
@@ -44,9 +45,10 @@
                 <header>
                     <button type="object" name="action_done" string="Mark as Done" class='btn-primary'/>
                 </header>
-        
+
                 <field name="ref"/>
                 <field name="patient_id"/>
+                <field name="doctor_id" optional="hide"/>
                 <field name="state"/>
                 <field name="description" optional="show"/>
                 <field name="time_checkup" optional="hide"/>
@@ -59,7 +61,7 @@
         <field name="name">hospital.appointment.kanban</field>
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
-            <kanban>
+            <kanban default_order='id,doctor_id desc'>
                 <field name="ref"/>
                 <field name="patient_id"/>
                 <field name="description"/>
@@ -75,6 +77,9 @@
                                     </li>
                                     <li>
                                        Name: <field name="patient_id"/>
+                                    </li>
+                                    <li>
+                                       Doctor: <field name="doctor_id"/>
                                     </li>
                                     <li>
                                        Description: <field name="description"/>

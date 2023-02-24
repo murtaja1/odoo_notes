@@ -150,19 +150,21 @@ def action_confirm(self):
 
 # 3. fields and attributes:
 
-## attributes:
+## Views Attributes:
 
 ### `sample="1"`: an attribute that's add to the `form or kanban` views to show sample data.
 
 ### `optional="show" or "hide"`: added to the tree field to either show or hide the field, to make the field dynamic and let the user check or uncheck to show the field.
+### `default_order="<field_name>,<field_name>... desc or asc"`: add in the kanban or tree... to order the records.
 
-tracking=True: means log any change to this field in the chatter.
+
+## Fields Attributes:
+### `tracking=True`: means log any change to this field in the chatter.
 used like:
 
 ```
 age = fields.Integer(tracking=True)
 ```
-
 ## fields:
 
 ### `many2one field`: like a selection field with data from another model:
@@ -176,7 +178,7 @@ responsible_id = fields.Many2one('res.partner', string="Responsible")
 ### `related='patinet_id.age'`: is an attribute that's added to a related field an that takes its value from a field in the model of `many2one field`. the `age` field is related to another `age` field in another model.
 
 ```
-age = fields.Integer(tracking=True, related='patinet_id.age')
+age = fields.Integer(tracking=True, related='patient_id.age')
 ```
 
 - 'res.partner': the name of the model.
@@ -654,7 +656,8 @@ class CreateAppointmentWizard(models.TransientModel):
 
 # 14. Models:
 
-### `_rec_name = 'field name'`: it's what will be shown in the header title.
+### `_rec_name = 'field name'`: it's what will be shown in the header title and in the `many2one` field.
+### `_order="<field_name>,<field_name>... desc or asc"`: to order the records.
 
 # 15. Database Operations:
 
