@@ -5,6 +5,12 @@ class HospitalPatient(models.Model):
     _name = "hospital.patient"
     _inherit = ['mail.thread', 'mail.activity.mixin'] # 'mail.activity.mixin' used to schedule an activity.
     _description = "hospital.patient"
+    def name_get(self):
+        res = []
+        for rec in self:
+            name = '[' + rec.ref + ']' + ' ' + rec.name
+            res.append((rec.id, name))
+        return res
 
     # tracking attr used to log the change in the chatter.  
     name = fields.Char(tracking=True)

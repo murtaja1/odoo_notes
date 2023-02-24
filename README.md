@@ -332,6 +332,16 @@ def _check_child_age(self):
     for rec in self:
         # action
 ```
+## `name_get method`:
+### used when you need to make the title of the record consist of more than one field or different field other than `name field` in form view or when choosing a record in `many2one field`.
+```
+def name_get(self):
+    res = []
+    for rec in self:
+        name = '[' + rec.<field name> + ']' + ' ' + rec.<field name>
+        res.append((rec.id, name))
+    return res
+```
 
 
 # 5. Sequential value:
