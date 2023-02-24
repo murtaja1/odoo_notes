@@ -26,7 +26,6 @@
                         <field name="date"/>
                         <field name="time_checkup"/>
                     </group>
-
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids"/>

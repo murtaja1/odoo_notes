@@ -493,6 +493,20 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
     </field>
 </record>
 ```
+## Notebook and pages:
+- it's added inside the `form view`.
+```
+<notebook>
+    <page name="doctor_prescription" string="Prescription">
+        <field name='prescription' />
+    </page>
+    <page name="doctor_medicine" string="Medicine">
+    </page>
+    <page name="doctor_other_info" string="Other Info">
+        <field name='note' />
+    </page>
+</notebook>
+```
 
 ## Tree View Template
 

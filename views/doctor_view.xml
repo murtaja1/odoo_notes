@@ -14,7 +14,16 @@
                         <field name="age"/>
                         <field name='gender' />
                     </group>
-
+                    <notebook>
+                        <page name="doctor_prescription" string="Prescription">
+                            <field name='prescription' />
+                        </page>
+                        <page name="doctor_medicine" string="Medicine">
+                        </page>
+                        <page name="doctor_other_info" string="Other Info">
+                            <field name='note' />
+                        </page>
+                    </notebook>
                 </sheet>
                 <!-- logging and chatter where new changes will be recorded if set 'tracking to true' in the model field-->
                 <div class="oe_chatter">

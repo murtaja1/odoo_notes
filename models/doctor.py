@@ -9,3 +9,5 @@ class HospitalDoctor(models.Model):
     age = fields.Integer(tracking=True)
     image = fields.Binary(string='image')
     gender = fields.Selection([('male', 'Male'), ('female', 'Female'), ('other', 'Other')])
+    note = fields.Text(string="Note")
+    prescription = fields.Text(string="Prescription")
