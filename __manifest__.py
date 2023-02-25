@@ -20,6 +20,8 @@
         'views/doctor_view.xml',
         'views/hospital_patient.xml',
         'views/appointment_view.xml',
+        'report/report.xml',
+        'report/patient_details.xml',
     ],
     'license': 'Other proprietary',
     'application': True # consider it as an application.

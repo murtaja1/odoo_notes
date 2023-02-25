@@ -828,7 +828,9 @@ class SaleOrder(models.Model):
     </field>
 </record>
 ```
+
 ### add it to the tree view record.
+
 ```
 <record id="sale_order_description_tree_inherit" model="ir.ui.view">
     <field name="name">sale.order.inherited</field>
@@ -847,3 +849,145 @@ class SaleOrder(models.Model):
     </field>
 </record>
 ```
+
+# 17. Reports:
+
+### to create a report follow these steps:
+
+1. create `report` folder and inside it a `report.xml` file.
+2. add your `action` so a `print button` appears.
+3. add the file (`report.xml`) in `__manifest__.py` file at the last of `data` section.
+
+```
+<record id="<model name>.<id>" model="ir.actions.report">
+    <field name="name"><title></field>
+    <field name="model"><model name></field>
+    <field name="binding_model_id" ref="model_<model name with _ and not .>"/>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">addon folder name.<template id></field>
+    <field name="report_file">addon folder name.<template id></field>
+    <field name="binding_type">report</field>
+    </record>
+```
+
+### `note`: to check if the action was added go to `settings>technical>Reports`
+
+4. create your `report template` in `report` folder and add it in `__manifest__.py` file at the last of `data`.
+```
+<template id="<template id>">
+    <t t-call="web.html_container"/>
+
+    <!-- <t t-call="web.external_layout">
+            <div class="page">
+
+            </div>
+        </t> -->
+    <t t-foreach="docs" t-as="o">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <div class="oe_structure">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <table class="table table-condensed" style="border: 3px solid black !important">
+                                <tr>
+                                    <td width="40%">
+                                        <p style="text-align:center;padding-top:10px">
+                                            <img t-if="not o.image" t-att-src="'/web/static/src/img/placeholder.png'" height="140" width="120" border="1" />
+                                            <!-- <img t-if="o.image" t-att-src="'data:image/png;base64,%s' % to_text(o.image)" height="140" width="120" border="1" /> -->
+                                            <img t-if="o.image" t-att-src="image_data_uri(o.image)" height="140" width="120" border="1" />
+                                        </p>
+                                    </td>
+                                    <td width="60%">
+                                        <table>
+                                            <tr>
+                                                <td colspan="3" class="text-center">
+                                                    <span t-field="o.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span>
+                                                        <strong>Age:</strong>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>:</span>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.age"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span>
+                                                        <strong>Reference:</strong>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>:</span>
+                                                </td>
+                                                <td>
+                                                    <span t-field="o.ref"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <t t-if="o.appointment_ids">
+                        <span>Appointment Details</span>
+                        <table class="table table-sm o_main_table" name="appointment">
+                            <thead>
+                                <tr>
+                                    <th name="th_reference" class="text-left">
+                                        <span>Reference</span>
+                                    </th>
+                                    <th name="th_age" class="text-left">
+                                        <span>Age</span>
+                                    </th>
+                                    <th name="th_doctor" class="text-left">
+                                        <span>Doctor</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <t t-set="appointment_count" t-value="0"/>
+                            <t t-foreach="o.appointment_ids" t-as="line">
+                                <t t-set="appointment_count" t-value="appointment_count + 1"/>
+                                <tr>
+                                    <td>
+                                        <span t-field="line.ref"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.age"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.doctor_id.name"/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td colspan="2">
+                                    <strong>Total Appointments</strong>
+                                </td>
+                                <td>
+                                    <t t-esc="appointment_count"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </t>
+</template>
+```
+- `t-call="web.basic_layout"`: a layout that you can create from scratch.
+- `t-call="web.external_layout"`: a layout that has header and footer built-in.
+- `t-foreach="docs" t-as="o"`: looping over the records and using `o` as the variable.
+-  `t-if="<python code>"`: use to check if certain condition is met like whether a field has a data or not.
+- `t-att-src="image_data_uri(o.<field name>)" or <img t-if="o.image" t-att-src="'data:image/png;base64,%s' % to_text(o.<field name>)" height="140" width="120" border="1" />`: add an image.
+- `t-field="o.<field name>"`: add the field in your model.
+- `t-esc="<python code>or<field name>"`: type python code or field name too.
+- `t-set="<var name>" t-value="<value>"`: declare a variable and its value.
