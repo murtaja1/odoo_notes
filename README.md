@@ -79,9 +79,9 @@ return {
     'domain': [(<field name>,'=',self.<value>)]
 }
 ```
-Server Actions:
-it is a button action that is added to action tab in the form or list view.
-`note`: to check it in UI go to `settings>techenical>server actions`
+## `Server Actions`:
+it is a button action that is added to the action tab in the form or list view.
+### `note`: to check it in UI and if the action was added go to `settings>technical>server actions`
 to add a server action follow these steps:
 
 1. create an action record.
@@ -95,9 +95,9 @@ to add a server action follow these steps:
     <field name="code">records.<method_name>()</field>
 </record>
 ```
-. `binding_model_id`: to make the button visible in the action tab.
-. `state=code`: means I will write python code.
-. `records`: if more than one record seleted in the `tree view`.
+- `binding_model_id`: to make the button visible in the action tab.
+- `state=code`: means I will write python code.
+- `records`: if more than one record selected in the `tree view`.
 
 to add a server action that calls an action from `xml file`.
 ```
@@ -109,7 +109,7 @@ to add a server action that calls an action from `xml file`.
     <field name="state">code</field>
     <field name="code">
     if record:
-            action_values = env.ref('model_name.<action_id>').sudo().read()[0]
+            action_values = env.ref('module_name.<action_id>').sudo().read()[0]
             action_values.update({'context': env.context})
             action = action_values
     </field>
@@ -886,7 +886,7 @@ class SaleOrder(models.Model):
 </record>
 ```
 
-# 17. Reports:
+# 17. PDF Reports:
 
 ### to create a report follow these steps:
 
@@ -896,7 +896,7 @@ class SaleOrder(models.Model):
 
 ```
 <record id="<model name>.<id>" model="ir.actions.report">
-    <field name="name"><title></field>
+    <field name="name"><button title></field>
     <field name="model"><model name></field>
     <field name="binding_model_id" ref="model_<model name with _ and not .>"/>
     <field name="report_type">qweb-pdf</field>
