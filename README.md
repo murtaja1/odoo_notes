@@ -79,6 +79,42 @@ return {
     'domain': [(<field name>,'=',self.<value>)]
 }
 ```
+Server Actions:
+it is a button action that is added to action tab in the form or list view.
+`note`: to check it in UI go to `settings>techenical>server actions`
+to add a server action follow these steps:
+
+1. create an action record.
+```
+<record id="<action id>" model="ir.actions.server">
+    <field name="name"><button title></field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="model_<model_name>"/>
+    <field name="binding_model_id" ref="model_<model_name>"/>
+    <field name="state">code</field>
+    <field name="code">records.<method_name>()</field>
+</record>
+```
+. `binding_model_id`: to make the button visible in the action tab.
+. `state=code`: means I will write python code.
+. `records`: if more than one record seleted in the `tree view`.
+
+to add a server action that calls an action from `xml file`.
+```
+<record id="<action id>" model="ir.actions.server">
+    <field name="name"><button title></field>
+    <field name="type">ir.actions.server</field>
+    <field name="model_id" ref="model_<model_name>"/>
+    <field name="binding_model_id" ref="model_<model_name>"/>
+    <field name="state">code</field>
+    <field name="code">
+    if record:
+            action_values = env.ref('model_name.<action_id>').sudo().read()[0]
+            action_values.update({'context': env.context})
+            action = action_values
+    </field>
+</record>
+```
 
 # 2. adding a StatusBar (buttons):
 
