@@ -115,7 +115,19 @@ to add a server action that calls an action from `xml file`.
     </field>
 </record>
 ```
-
+## Url Action:
+### to open new url in odoo.
+1. create a button of type object.
+2. then return the following code in the python method:
+```
+def action_Url(self):
+    return {
+        'type':'ir.actions.act_url',
+        'target':'new',
+        'url': <url>
+    }
+```
+-  `'target':'new'or'self',`: target can be `new` to open in new tab, or `self` to open in the same tab.
 # 2. adding a StatusBar (buttons):
 
 1. add a selection field named state in the model with the states like e.g.
@@ -183,6 +195,17 @@ def action_confirm(self):
 ```
 <button id="button_create_appointment" type="action" name="%(<action_id>)d" string="Create Appointment" class='btn-primary'/>
 ```
+## 3. Smart Buttons:
+### it's a button that has title and icon and value that can be either `action or object button`.
+```
+<div class="oe_button_box" name="button_box">
+    <button name="<%(action_id)d>or<method_name>" type="<button type>" class="oe_stat_button" icon="fa-calendar">
+        <field name="<field_name>"/>
+        <span class="o_stat_text"><title></span>
+    </button>
+</div>
+```
+
 
 # 3. fields and attributes:
 
@@ -1027,3 +1050,6 @@ class SaleOrder(models.Model):
 - `t-field="o.<field name>"`: add the field in your model.
 - `t-esc="<python code>or<field name>"`: type python code or field name too.
 - `t-set="<var name>" t-value="<value>"`: declare a variable and its value.
+# 17. Odoo Urls:
+- create new database
+`http://localhost:8069/web/database/manager`

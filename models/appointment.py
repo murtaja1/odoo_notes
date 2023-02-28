@@ -30,6 +30,12 @@ class HospitalAppointment(models.Model):
         tracking=True
     )
 
+    def action_Url(self):
+        return {
+            'type':'ir.actions.act_url',
+            'target':'new',
+            'url':'https://chat.openai.com/chat'
+        }
     def action_confirm(self):
         self.state = 'confirm'
 

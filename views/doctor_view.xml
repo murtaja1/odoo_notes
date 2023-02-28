@@ -8,6 +8,12 @@
         <field name="arch" type="xml">
             <form string="">
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(hospital_management.hospital_appointment_action)d" type="action" class="oe_stat_button" icon="fa-calendar">
+                            <field name="appointment_count"/>
+                            <span class="o_stat_text">Appointments</span>
+                        </button>
+                    </div>
                     <field name="image" widget="image" class="oe_avatar"/>
                     <group>
                         <group>

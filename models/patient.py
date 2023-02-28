@@ -28,7 +28,7 @@ class HospitalPatient(models.Model):
     state = fields.Selection(
         selection=[
             ('draft', 'Draft'),
-            ('confirm', 'Confirm'),
+            ('confirm', 'Confirm'), 
             ('done', 'Done'),
             ('cancel', 'Cancelled'),
         ],
@@ -89,3 +89,13 @@ class HospitalPatient(models.Model):
         res = super(HospitalPatient, self).default_get(fields_list)
         res['age'] = 10
         return res
+
+    def action_open_appointments(self):
+        return {
+            'name': _('Appointments'),
+            'type': 'ir.actions.act_window',
+            'view_type':'form',
+            'view_mode':"tree,form",
+            'res_model':"hospital.appointment",
+            'domain': [('patient_id','=',self.id)]
+        }
