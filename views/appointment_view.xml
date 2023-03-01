@@ -131,6 +131,10 @@
                     <filter string="Date" name="group_by_date" context="{'group_by': 'date'}"/>
                     <filter string="Name" name="group_by_patient_id" context="{'group_by': 'patient_id'}"/>
                 </group>
+                <searchpanel>
+                    <field name="state" string="Status" enable_counters="1"/>
+                    <field name="gender" string="Gender" select="multi" icon="fa-users"/>
+                </searchpanel>
             </search>
         </field>
     </record>

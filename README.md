@@ -495,7 +495,7 @@ def create(self, vals_list):
 <field name="ref"/>
 ```
 
-# 6. Group by and filters:
+# 6. Group by and filters and Search:
 
 ### it's a way of filtering the records or grouping them by a field.
 
@@ -545,6 +545,17 @@ def create(self, vals_list):
 ```
 <field name="context">{'search_default_group_by_gender': 1, 'search_default_group_by_name': 1}</field>
 ```
+
+## `SearchPanel`:
+### it's a side bar that's used to filter and search the records based on `many2one, selection` fields.
+```
+<searchpanel>
+    <field name="state" string="Status" enable_counters="1"/>
+    <field name="gender" string="Gender" select="multi" icon="fa-users"/>
+</searchpanel>
+```
+- `enable_counters="1"`: used to show the number of the records.
+- `select="multi"`: to enable selection of more than one choice.
 
 # 7. Adding Domains:
 
@@ -742,6 +753,23 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
 
             </template>
         </kanban>
+    </field>
+</record>
+```
+## Search View Template
+
+```
+<record id="hospital_management.hospital_patient_search" model="ir.ui.view">
+    <field name="name">hospital.patient.search</field>
+    <field name="model">hospital.patient</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="name" filter_domain="['|', ('name', 'ilike', self), ('ref', 'ilike', self)]"/>
+            <group expand="0" string="Group By">
+                <filter string="Gender" name="group_by_gender" context="{'group_by': 'gender'}"/>
+                <filter string="Name" name="group_by_name" context="{'group_by': 'name'}"/>
+            </group>
+        </search>
     </field>
 </record>
 ```
