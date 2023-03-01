@@ -8,12 +8,12 @@
         <field name="arch" type="xml">
             <form string="">
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
+                    <!-- <div class="oe_button_box" name="button_box">
                         <button name="%(hospital_management.hospital_appointment_action)d" type="action" class="oe_stat_button" icon="fa-calendar">
                             <field name="appointment_count"/>
                             <span class="o_stat_text">Appointments</span>
                         </button>
-                    </div>
+                    </div> -->
                     <field name="image" widget="image" class="oe_avatar"/>
                     <group>
                         <group>
@@ -23,6 +23,7 @@
                         <group>
                             <field name="note"/>
                             <field name='gender' />
+                            <field name='active' invisible="1" />
                         </group>
                     </group>
                     <notebook>
@@ -108,6 +109,8 @@
                 <filter string="Male" name="filter_male" domain="[('gender', '=', 'male')]"/>
                 <filter string="Female" name="filter_female" domain="[('gender', '=', 'female')]"/>
                 <filter string="Other" name="filter_other" domain="[('gender', '=', 'other')]"/>
+                <separator/>
+                <filter string="Archived" name="filter_archive" domain="[('active', '=', False)]"/>
                 <!-- to add a default group filter in the group by dropdown -->
                 <group expand="0" string="Group By">
                     <filter string="Gender" name="group_by_gender" context="{'group_by': 'gender'}"/>

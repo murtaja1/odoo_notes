@@ -6,7 +6,7 @@
         <field name="name">Patients</field>
         <field name="res_model">hospital.patient</field>
         <field name="view_mode">tree,form,kanban</field>
-        <field name="context">{'search_default_group_by_gender': 1}</field>
+        <!-- <field name="context">{'search_default_group_by_gender': 1}</field> -->
     </record>
     <!-- a menu that has no parent which is the parent (the menu that appears in the dashboard ) which call an action-->
     <menuitem id="hospital_management.root_menu" name="Hospital Management" action="hospital_management.hospital_patient_action" />
@@ -46,7 +46,6 @@
         <field name="name">Appointments</field>
         <field name="res_model">hospital.appointment</field>
         <field name="view_mode">tree,form,kanban</field>
-        <field name="domain">[('doctor_id', '=', active_id)]</field>
     </record>
     <menuitem id="hospital_management.appointments_root_menu" name="Appointments" parent="hospital_management.root_menu" sequence="50"/>
     <menuitem id="hospital_management.appointments_menu" name="Appointments" action="hospital_management.hospital_appointment_action" parent="hospital_management.appointments_root_menu" sequence="10"/>

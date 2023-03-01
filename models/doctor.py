@@ -12,6 +12,7 @@ class HospitalDoctor(models.Model):
     note = fields.Text(string="Note")
     prescription = fields.Text(string="Prescription")
     appointment_count = fields.Integer(string='Appointment Count', compute="_compute_appointment_count")
+    active = fields.Boolean(string="Active", default=True)
 
     def copy(self, default=None):
         default = default or {}

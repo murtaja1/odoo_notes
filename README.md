@@ -79,12 +79,17 @@ return {
     'domain': [(<field name>,'=',self.<value>)]
 }
 ```
+
 ## `Server Actions`:
+
 it is a button action that is added to the action tab in the form or list view.
+
 ### `note`: to check it in UI and if the action was added go to `settings>technical>server actions`
+
 to add a server action follow these steps:
 
 1. create an action record.
+
 ```
 <record id="<action id>" model="ir.actions.server">
     <field name="name"><button title></field>
@@ -95,11 +100,13 @@ to add a server action follow these steps:
     <field name="code">records.<method_name>()</field>
 </record>
 ```
+
 - `binding_model_id`: to make the button visible in the action tab.
 - `state=code`: means I will write python code.
 - `records`: if more than one record selected in the `tree view`.
 
 to add a server action that calls an action from `xml file`.
+
 ```
 <record id="<action id>" model="ir.actions.server">
     <field name="name"><button title></field>
@@ -115,10 +122,14 @@ to add a server action that calls an action from `xml file`.
     </field>
 </record>
 ```
+
 ## Url Action:
+
 ### to open new url in odoo.
+
 1. create a button of type object.
 2. then return the following code in the python method:
+
 ```
 def action_Url(self):
     return {
@@ -127,7 +138,9 @@ def action_Url(self):
         'url': <url>
     }
 ```
--  `'target':'new'or'self',`: target can be `new` to open in new tab, or `self` to open in the same tab.
+
+- `'target':'new'or'self',`: target can be `new` to open in new tab, or `self` to open in the same tab.
+
 # 2. adding a StatusBar (buttons):
 
 1. add a selection field named state in the model with the states like e.g.
@@ -195,8 +208,11 @@ def action_confirm(self):
 ```
 <button id="button_create_appointment" type="action" name="%(<action_id>)d" string="Create Appointment" class='btn-primary'/>
 ```
+
 ## 3. Smart Buttons:
+
 ### it's a button that has title and icon and value that can be either `action or object button`.
+
 ```
 <div class="oe_button_box" name="button_box">
     <button name="<%(action_id)d>or<method_name>" type="<button type>" class="oe_stat_button" icon="fa-calendar">
@@ -205,7 +221,6 @@ def action_confirm(self):
     </button>
 </div>
 ```
-
 
 # 3. fields and attributes:
 
@@ -314,6 +329,16 @@ medicine_line_ids = fields.One2many('<model name>','appointment_id',string="Medi
 - `edit="0"`: added to tree view to prevent the user from updating the records.
 
 ### `note`: if there is a view related to the model and you don't add a view in the notebook then that view will be uses.
+
+## `active = fields.Boolean(string="Active", default=True)`: 
+### it's a special in odoo that is used to add the options `archive and unarchive` records.
+### to the options in the view form, you need to add the field there and make it invisible
+```
+<field name='active' invisible="1" />
+```
+
+
+### `note for relation fields`: when you choose many tags in the same field then it's `Many2many`, when it's dropdown then it's `Many2one`, when it's lines then `One2many`.
 
 # 4. Methods:
 
@@ -932,6 +957,7 @@ class SaleOrder(models.Model):
 ### `note`: to check if the action was added go to `settings>technical>Reports`
 
 4. create your `report template` in `report` folder and add it in `__manifest__.py` file at the last of `data`.
+
 ```
 <template id="<template id>">
     <t t-call="web.html_container"/>
@@ -1042,14 +1068,17 @@ class SaleOrder(models.Model):
     </t>
 </template>
 ```
+
 - `t-call="web.basic_layout"`: a layout that you can create from scratch.
 - `t-call="web.external_layout"`: a layout that has header and footer built-in.
 - `t-foreach="docs" t-as="o"`: looping over the records and using `o` as the variable.
--  `t-if="<python code>"`: use to check if certain condition is met like whether a field has a data or not.
+- `t-if="<python code>"`: use to check if certain condition is met like whether a field has a data or not.
 - `t-att-src="image_data_uri(o.<field name>)" or <img t-if="o.image" t-att-src="'data:image/png;base64,%s' % to_text(o.<field name>)" height="140" width="120" border="1" />`: add an image.
 - `t-field="o.<field name>"`: add the field in your model.
 - `t-esc="<python code>or<field name>"`: type python code or field name too.
 - `t-set="<var name>" t-value="<value>"`: declare a variable and its value.
+
 # 17. Odoo Urls:
+
 - create new database
-`http://localhost:8069/web/database/manager`
+  `http://localhost:8069/web/database/manager`
