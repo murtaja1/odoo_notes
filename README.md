@@ -378,8 +378,8 @@ def onchagne_patient_id(self):
 - you can add more depends in `@api.onchange` like `@api.onchange('patient_id','age')`
 
 ## `default_get method:`
-
-### it's a method that gets called when clicking on `create button` (not save button).
+ 
+### it's a method that gets called when clicking on `create button` (not save button) to create a new record.
 
 ```
 @api.model
@@ -574,7 +574,7 @@ def create(self, vals_list):
 
 ## - set default value for field in the context.
 
-### add the following context field in the action record.
+### add the following context field in the `action record`.
 
 ### write `default_` followed by the field name then colon then the value.
 
@@ -590,7 +590,7 @@ def create(self, vals_list):
 
 ## - hide field based on the context.
 
-### add the following field in the action record.
+### add the following field in the `action record`.
 
 ### `hide_` followed by field name
 
@@ -607,7 +607,16 @@ def create(self, vals_list):
 ```
 <field name='gender' invisible="context.get('hide_gender')"/>
 ```
-
+## `Active_id`
+### it is a special variable in Odoo that is used to represent the ID of the currently selected record or object in a view or form.
+- in python code you can access like this:
+```
+self._context.get('active_id')
+```
+- in python code you can access like this:
+```
+<field name="context">{'default_<field_name>': active_id}</field>
+```
 # 9. Access Rights:
 
 ## setting which user can access what.

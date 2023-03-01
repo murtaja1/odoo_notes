@@ -47,6 +47,12 @@
         <field name="res_model">hospital.appointment</field>
         <field name="view_mode">tree,form,kanban</field>
     </record>
+    <record id="hospital_management.hospital_appointment_id_action" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{'default_doctor_id': active_id}</field>
+    </record>
     <menuitem id="hospital_management.appointments_root_menu" name="Appointments" parent="hospital_management.root_menu" sequence="50"/>
     <menuitem id="hospital_management.appointments_menu" name="Appointments" action="hospital_management.hospital_appointment_action" parent="hospital_management.appointments_root_menu" sequence="10"/>
 
@@ -81,6 +87,6 @@
                 action_values = env.ref('hospital_management.hospital_create_appointment_wizard_action').sudo().read()[0]
                 action_values.update({'context': env.context})
                 action = action_values
-            </field>
+        </field>
     </record>
 </odoo>

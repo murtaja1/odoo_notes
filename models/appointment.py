@@ -66,7 +66,7 @@ class HospitalAppointment(models.Model):
         if self.state == 'done':
             raise ValidationError(_('you can\'t delete this record because it is in done state!'))
         return super(HospitalAppointment, self).unlink()
-    
+        
 class HospitalAppointmentMedicine(models.Model):
     _name = "hospital.appointment.medicine"
     _description = "hospital.appointment.medicine"

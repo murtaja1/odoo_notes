@@ -42,3 +42,9 @@ class CreateAppointmentWizard(models.TransientModel):
         #     'res_model':"hospital.appointment",
         #     'domain': [('patient_id','=',self.patient_id.id)]
         # }
+    @api.model
+    def default_get(self, fields_list):
+        res = super(CreateAppointmentWizard, self).default_get(fields_list)
+        if self._context.get('active_id'):
+            res['patient_id'] = self._context.get('active_id')
+        return res
