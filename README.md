@@ -1098,3 +1098,10 @@ class SaleOrder(models.Model):
 
 - create new database
   `http://localhost:8069/web/database/manager`
+
+# 18. Widgets:
+### they are used for style mostly.
+## `Banner or Ribbon widget`:
+```
+<widget name="web_ribbon" bg_color="bg-danger" title="Archived" attrs="{'invisible': [('active','=',True)]}"/>
+```
