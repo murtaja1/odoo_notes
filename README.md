@@ -942,6 +942,13 @@ class SaleOrder(models.Model):
     </field>
 </record>
 ```
+## `Position Move`:
+### used to move fields or elements:
+```
+ <xpath expr="//field[@name='phone']" position="before">
+                <field name="email" position='move'/>
+            </xpath>
+```
 
 # 17. PDF Reports:
 
