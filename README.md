@@ -240,6 +240,8 @@ def action_confirm(self):
 
 ### `copy=False`: to not copy when clicking the duplicate method to copy the record.
 
+### `expand="1"`: added in the `tree view` to expand the `group by` by default.
+
 ## fields:
 
 ### `many2one field`: like a selection field with data from another model:

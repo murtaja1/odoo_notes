@@ -62,7 +62,7 @@
         <field name="name">hospital.patient.search</field>
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
-            <tree string="">
+            <tree expand="1">
                 <field name="ref"/>
                 <field name="name"/>
                 <field name="responsible_id"/>
