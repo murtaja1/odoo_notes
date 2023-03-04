@@ -1048,6 +1048,20 @@ class SaleOrder(models.Model):
 </record>
 ```
 
+## to override an existing inherited method:
+1. import the file where the method is written.
+2. override the method by creating the method with the same name.
+or 
+3. import the class where the method is defined and call it with your new method, like:
+```
+from odoo.addons.sale.models.sale_order import SaleOrder as OdooSaleOrder
+
+def _unlink_except_draft_or_cancel(self):
+    return super(SaleOrder,self).unlink()
+
+OdooSaleOrder._unlink_except_draft_or_cancel = _unlink_except_draft_or_cancel
+```
+### `note` where reassigning odoo's original method with our new overridden method.
 # 17. PDF Reports:
 
 ### to create a report follow these steps:
