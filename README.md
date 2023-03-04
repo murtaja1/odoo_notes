@@ -250,6 +250,9 @@ def action_confirm(self):
 
 ### `expand="1"`: added in the `tree view` to expand the `group by` by default.
 
+### `ondelete={'<selection_name>': 'cascade' or 'set null' or 'set default'}`: add to selection field so when uninstalling the module when specifying `cascade` the record that has this value will be deleted, `set null` will be set to null, `set default` will be set the field default value.
+### `selection_add=[('test', 'Test')]`: used to add another option to an existing `selection field`.
+
 ## fields:
 
 ### `many2one field`: like a selection field with data from another model:
@@ -1193,13 +1196,17 @@ def action_print_appointment(self):
 3. add a button in the `form` that calls the method form the `TransientModel` model.
 
 ### `note`: you can access `data` that contains 'form_data' and 'appointments' in the report file.
+
 - `self.read()[0]` is the current record.
 - `search_read(domain)` used to get readable data instead of just `search` method that gets record set.
 
 ## `Report form Wizard Using Parser`:
+
 ### same steps taken to create `Report form Wizard` with:
+
 1. create a model inside `report` folder.
 2. instead of handle the logic inside the `TransientModel` model, do it inside the following model.
+
 ```
 class AllPatientReport(models.AbstractModel):
     _name = "report.hospital_management.all_patient_details_report_template"
@@ -1215,12 +1222,13 @@ class AllPatientReport(models.AbstractModel):
         if gender:
             domain += [('gender','=',gender)]
         docs = self.env['hospital.patient'].search_read(domain)
-    
+
         return {
             'docs': docs,
             'search': {'age': age, 'gender':gender}
         }
 ```
+
 - `_name`: the name of this model consists of `report.<module_name>.<report_template_id>`
 - `_get_report_values` a method that gets called when printing the reprot.
 - all the return data from this `_get_report_values` will be used in report template
