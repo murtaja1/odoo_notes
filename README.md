@@ -234,7 +234,13 @@ def action_confirm(self):
 
 ### `multi_edit="1"`: added to `tree view` to enable editing more than one record at the same time.
 
-`attrs="{'readonly': [('state', 'in', ('done','cancel','sale'))]}"`: make a field or element conditionally readonly.
+### `attrs="{'readonly': [('state', 'in', ('done','cancel','sale'))]}"`: make a field or element conditionally readonly.
+
+### `options="{'no_create_edit':True}"`: added to `Many2one` field and used to disable create and edit option if the record does not exits.
+
+### `options="{'no_create':True}"`: added to `Many2one` field and used to disable create option if the record does not exits.
+
+### `options="{'no_open':True}"`: added to `Many2one` field and used to make the field unclickable (you can't go the field record) option if the record does not exits.
 
 ## Fields Attributes:
 
