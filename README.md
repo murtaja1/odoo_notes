@@ -1039,6 +1039,15 @@ class SaleOrder(models.Model):
             </xpath>
 ```
 
+## `Hiding a print button from view`:
+### to hide from the UI: go to `settings>technical>reporting>reports` then search the name of the report action. and click `hide from menu`.
+### from the code:
+```
+<record id="<external_id or xml_id>" model="ir.actions.report">
+    <field name="binding_model_id" eval="False" />
+</record>
+```
+
 # 17. PDF Reports:
 
 ### to create a report follow these steps:
