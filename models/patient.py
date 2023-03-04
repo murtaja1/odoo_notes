@@ -8,7 +8,10 @@ class HospitalPatient(models.Model):
     def name_get(self):
         res = []
         for rec in self:
-            name = '[' + rec.ref + ']' + ' ' + rec.name
+            if not self.env.context.get('hide_code'):
+                name = '[' + rec.ref + ']' + ' ' + rec.name
+            else:
+                name = rec.name
             res.append((rec.id, name))
         return res
 

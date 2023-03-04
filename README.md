@@ -252,6 +252,7 @@ def action_confirm(self):
 
 ### `ondelete={'<selection_name>': 'cascade' or 'set null' or 'set default'}`: add to selection field so when uninstalling the module when specifying `cascade` the record that has this value will be deleted, `set null` will be set to null, `set default` will be set the field default value.
 ### `selection_add=[('test', 'Test')]`: used to add another option to an existing `selection field`.
+### `selection_add=[('test', 'Test'), ('service',)]`: here it means you need to put the test option before the service option (changing the position visibility).
 
 ## fields:
 
@@ -653,6 +654,22 @@ self._context.get('active_id')
 <field name="context">{'default_<field_name>': active_id}</field>
 ```
 
+## context with name_get method:
+### using context you can specify whether `rec_name` has a code or not.
+1. add an attribute `context="{'<whatever>': True}"`.
+2. use this field a condition like:
+```
+def name_get(self):
+    res = []
+    for rec in self:
+        if not self.env.context.get('<whatever>'):
+            name = '[' + rec.ref + ']' + ' ' + rec.name
+        else:
+            name = rec.name
+        res.append((rec.id, name))
+    return res
+```
+
 # 9. Access Rights:
 
 ## setting which user can access what.
@@ -858,6 +875,9 @@ def _compute_appointment_count(self):
 - file not added in the `__manifest__.py` file.
 - `access rights` not set. check this by becoming `superuser`.
 - if a menu is not a parent menu and doesn't have an action then it will be invisible.
+
+### ValueError: product.template.detailed_type: required selection fields must define an ondelete policy that implements the proper cleanup of the corresponding records upon module uninstallation. Please use one or more of the following policies: 'set default' (if the field has a default defined), 'cascade', or ....
+### when receiving such error, you need to use the `ondelete attribute`
 
 # 13. Wizard:
 

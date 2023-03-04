@@ -10,6 +10,7 @@ class HospitalAppointment(models.Model):
 
     # tracking attr used to log the change in the chatter.  
     patient_id = fields.Many2one('hospital.patient', string='Patient')
+    patient_without_code_id = fields.Many2one('hospital.patient', string='Patient')
     doctor_id = fields.Many2one('hospital.doctor', string='Doctor', required=True)
     age = fields.Integer(tracking=True, related='patient_id.age')
     gender = fields.Selection([('male', 'Male'), ('female', 'Female'), ('other', 'Other')])
