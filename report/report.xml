@@ -11,4 +11,13 @@
         <field name="binding_type">report</field>
     </record>
 
+    <record id="hospital_management.appointment_report_details" model="ir.actions.report">
+        <field name="name">Appointments</field>
+        <field name="model">hospital.appointment</field>
+        <field name="binding_model_id" ref="model_hospital_appointment"/>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hospital_management.appointment_details_id_report</field>
+        <field name="report_file">hospital_management.appointment_details_id_report</field>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>

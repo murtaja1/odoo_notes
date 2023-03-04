@@ -234,6 +234,8 @@ def action_confirm(self):
 
 ### `multi_edit="1"`: added to `tree view` to enable editing more than one record at the same time.
 
+`attrs="{'readonly': [('state', 'in', ('done','cancel','sale'))]}"`: make a field or element conditionally readonly.
+
 ## Fields Attributes:
 
 ### `tracking=True`: means log any change to this field in the chatter.
@@ -332,13 +334,15 @@ medicine_line_ids = fields.One2many('<model name>','appointment_id',string="Medi
 
 ### `note`: if there is a view related to the model and you don't add a view in the notebook then that view will be uses.
 
-## `active = fields.Boolean(string="Active", default=True)`: 
+## `active = fields.Boolean(string="Active", default=True)`:
+
 ### it's a special in odoo that is used to add the options `archive and unarchive` records.
+
 ### to the options in the view form, you need to add the field there and make it invisible
+
 ```
 <field name='active' invisible="1" />
 ```
-
 
 ### `note for relation fields`: when you choose many tags in the same field then it's `Many2many`, when it's dropdown then it's `Many2one`, when it's lines then `One2many`.
 
@@ -380,7 +384,7 @@ def onchagne_patient_id(self):
 - you can add more depends in `@api.onchange` like `@api.onchange('patient_id','age')`
 
 ## `default_get method:`
- 
+
 ### it's a method that gets called when clicking on `create button` (not save button) to create a new record.
 
 ```
@@ -549,13 +553,16 @@ def create(self, vals_list):
 ```
 
 ## `SearchPanel`:
+
 ### it's a side bar that's used to filter and search the records based on `many2one, selection` fields.
+
 ```
 <searchpanel>
     <field name="state" string="Status" enable_counters="1"/>
     <field name="gender" string="Gender" select="multi" icon="fa-users"/>
 </searchpanel>
 ```
+
 - `enable_counters="1"`: used to show the number of the records.
 - `select="multi"`: to enable selection of more than one choice.
 
@@ -620,16 +627,23 @@ def create(self, vals_list):
 ```
 <field name='gender' invisible="context.get('hide_gender')"/>
 ```
+
 ## `Active_id`
+
 ### it is a special variable in Odoo that is used to represent the ID of the currently selected record or object in a view or form.
+
 - in python code you can access like this:
+
 ```
 self._context.get('active_id')
 ```
+
 - in python code you can access like this:
+
 ```
 <field name="context">{'default_<field_name>': active_id}</field>
 ```
+
 # 9. Access Rights:
 
 ## setting which user can access what.
@@ -758,6 +772,7 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
     </field>
 </record>
 ```
+
 ## Search View Template
 
 ```
@@ -824,6 +839,10 @@ def _compute_appointment_count(self):
         appointment_count = self.env['hospital.appointment'].search_count([('patient_id','=',rec.id)])
         rec.appointment_count = appointment_count
 ```
+
+## Mandatory Field not set..:
+
+### means the form is missing a requried field.
 
 ### Menu not visible reasons:
 
@@ -903,6 +922,14 @@ self.env[<model_name>].create(<dict of the values>)
 
 # 16. Inherit and add to existing Module:
 
+## `add or override an attribute to already exits field:`
+
+```
+<xpath expr="//field[@name='field_name']" position="attributes">
+    <attribute name="attrs">{'readonly': [('state', 'in', ('done','cancel','sale'))]}</attribute>
+</xpath>
+```
+
 ### add the module as a `depend` in `__manifest__.py` file.
 
 ## `Add menu to existing Module`:
@@ -972,8 +999,11 @@ class SaleOrder(models.Model):
     </field>
 </record>
 ```
+
 ## `Position Move`:
+
 ### used to move fields or elements:
+
 ```
  <xpath expr="//field[@name='phone']" position="before">
                 <field name="email" position='move'/>
@@ -1124,14 +1154,53 @@ class SaleOrder(models.Model):
 - `t-esc="<python code>or<field name>"`: type python code or field name too.
 - `t-set="<var name>" t-value="<value>"`: declare a variable and its value.
 
+## `Report form Wizard`:
+
+### follow the same steps above with:
+
+1. create a menu.
+2. create the model `TransientModel` and add its access rights and a method to pring the report.
+
+```
+def action_print_appointment(self):
+    domain = []
+    patient_id = self.patient_id
+    date_from = self.date_from
+    date_to = self.date_to
+
+    if patient_id:
+        domain += [('patient_id','=', patient_id.id)]
+    if date_from:
+        domain += [('date','>=', date_from)]
+    if date_to:
+        domain += [('date','<=', date_to)]
+
+    appointments = self.env['hospital.appointment'].search_read(domain)
+    data = {
+        'form_data': self.read()[0],
+        'appointments': appointments
+    }
+    return self.env.ref(<the report action id in the report folder>).report_action(self, data=data)
+```
+
+2. create file in the wizard that contains the the form and the action just like in the `Wizard` section.
+3. add a button in the `form` that calls the method form the `TransientModel` model.
+
+### `note`: you can access `data` that contains 'form_data' and 'appointments' in the report file.
+- `self.read()[0]` is the current record.
+- `search_read(domain)` used to get readable data instead of just `search` method that gets record set.
+
 # 17. Odoo Urls:
 
 - create new database
   `http://localhost:8069/web/database/manager`
 
 # 18. Widgets:
+
 ### they are used for style mostly.
+
 ## `Banner or Ribbon widget`:
+
 ```
 <widget name="web_ribbon" bg_color="bg-danger" title="Archived" attrs="{'invisible': [('active','=',True)]}"/>
 ```

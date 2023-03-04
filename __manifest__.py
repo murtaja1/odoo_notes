@@ -15,6 +15,7 @@
         'data/sequence.xml',
         'wizard/create_appointment_wizard.xml',
         'wizard/search_appointment_wizard.xml',
+        'wizard/report_appointment_wizard.xml',
         'views/sale.xml',
         'views/views.xml',
         'views/doctor_view.xml',
@@ -23,6 +24,7 @@
         'views/partner.xml',
         'report/report.xml',
         'report/patient_details.xml',
+        'report/appointment_report.xml',
     ],
     'license': 'Other proprietary',
     'application': True # consider it as an application.

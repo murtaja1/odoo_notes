@@ -89,4 +89,8 @@
                 action = action_values
         </field>
     </record>
+
+    <menuitem id="hospital_management.reporting_menu" name="Reporting" parent="hospital_management.root_menu" sequence="50"/>
+    <menuitem id="hospital_management.reporting_appointment_menu" name="Appointments" action="hospital_management.hospital_appointment_report_wizard_action" parent="hospital_management.reporting_menu" sequence="30"/>
+
 </odoo>
