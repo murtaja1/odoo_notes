@@ -91,6 +91,6 @@
     </record>
 
     <menuitem id="hospital_management.reporting_menu" name="Reporting" parent="hospital_management.root_menu" sequence="50"/>
-    <menuitem id="hospital_management.reporting_appointment_menu" name="Appointments" action="hospital_management.hospital_appointment_report_wizard_action" parent="hospital_management.reporting_menu" sequence="30"/>
-
+    <menuitem id="hospital_management.reporting_appointment_menu" name="Appointments" action="hospital_management.hospital_appointment_report_wizard_action" parent="hospital_management.reporting_menu" sequence="10"/>
+    <menuitem id="hospital_management.reporting_patients_menu" name="Patients" action="hospital_management.hospital_patient_report_wizard_action" parent="hospital_management.reporting_menu" sequence="20"/>
 </odoo>

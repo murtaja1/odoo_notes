@@ -5,6 +5,7 @@ access_hospital_appointment_user,hospital.appointment,model_hospital_appointment
 access_hospital_create_appointment_wizard_user,hospital.create.appointment.wizard,model_hospital_create_appointment_wizard,base.group_user,1,1,1,1
 access_hospital_search_appointment_wizard_user,hospital.search.appointment.wizard,model_hospital_search_appointment_wizard,base.group_user,1,1,1,1
 access_hospital_report_appointment_wizard_user,hospital.report.appointment.wizard,model_hospital_report_appointment_wizard,base.group_user,1,1,1,1
+access_hospital_report_patient_wizard_user,hospital.report.patient.wizard,model_hospital_report_patient_wizard,base.group_user,1,1,1,1
 access_hospital_appointment_medicine_user,hospital.appointment.medicine,model_hospital_appointment_medicine,base.group_user,1,1,1,1
 
 

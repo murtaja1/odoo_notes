@@ -1190,6 +1190,37 @@ def action_print_appointment(self):
 - `self.read()[0]` is the current record.
 - `search_read(domain)` used to get readable data instead of just `search` method that gets record set.
 
+## `Report form Wizard Using Parser`:
+### same steps taken to create `Report form Wizard` with:
+1. create a model inside `report` folder.
+2. instead of handle the logic inside the `TransientModel` model, do it inside the following model.
+```
+class AllPatientReport(models.AbstractModel):
+    _name = "report.hospital_management.all_patient_details_report_template"
+    _description = "report.hospital_management.all_patient_details_report_template"
+
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        domain = []
+        age = data.get('form_data').get('age')
+        gender = data.get('form_data').get('gender')
+        if age != 0:
+            domain += [('age','=',age)]
+        if gender:
+            domain += [('gender','=',gender)]
+        docs = self.env['hospital.patient'].search_read(domain)
+    
+        return {
+            'docs': docs,
+            'search': {'age': age, 'gender':gender}
+        }
+```
+- `_name`: the name of this model consists of `report.<module_name>.<report_template_id>`
+- `_get_report_values` a method that gets called when printing the reprot.
+- all the return data from this `_get_report_values` will be used in report template
+- `docids`: the selected record id if it gets called from a record.
+- `data`: data that comes from the wizard through the `TransientModel` model.
+
 # 17. Odoo Urls:
 
 - create new database
