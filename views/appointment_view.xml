@@ -22,6 +22,7 @@
                     <group>
                         <field name="patient_id" options="{'no_open':True, 'no_create':True}"/>
                         <field name="patient_without_code_id" string='Patient without code' context="{'hide_code': True}"/>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                         <field name="doctor_id" options="{'no_create_edit':True}"/>
                         <field name="age"/>
                         <field name="gender" readonly="1" force_save="1"/>

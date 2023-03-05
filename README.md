@@ -241,7 +241,7 @@ def action_confirm(self):
 ### `options="{'no_create':True}"`: added to `Many2one` field and used to disable create option if the record does not exits.
 
 ### `options="{'no_open':True}"`: added to `Many2one` field and used to make the field unclickable (you can't go the field record) option if the record does not exits.
-
+### `options="{'color_field': '<field_name that has the color which is integer>'}"`: to show color of tags.
 ## Fields Attributes:
 
 ### `tracking=True`: means log any change to this field in the chatter.
@@ -255,6 +255,11 @@ def action_confirm(self):
 ### `selection_add=[('test', 'Test'), ('service',)]`: here it means you need to put the test option before the service option (changing the position visibility).
 
 ## fields:
+
+### `Many2many field`: create a model and link it in your model like this: 
+```
+tag_ids = fields.Many2many('<model_name>', string="Tags")
+```
 
 ### `many2one field`: like a selection field with data from another model:
 
@@ -1292,3 +1297,4 @@ class AllPatientReport(models.AbstractModel):
 ```
 <widget name="web_ribbon" bg_color="bg-danger" title="Archived" attrs="{'invisible': [('active','=',True)]}"/>
 ```
+## `widget="many2many_tags"`: added to tags model, used to let you style set color of tags.

@@ -12,6 +12,7 @@ class HospitalAppointment(models.Model):
     patient_id = fields.Many2one('hospital.patient', string='Patient')
     patient_without_code_id = fields.Many2one('hospital.patient', string='Patient')
     doctor_id = fields.Many2one('hospital.doctor', string='Doctor', required=True)
+    tag_ids = fields.Many2many('hospital.tags', string="Tags")
     age = fields.Integer(tracking=True, related='patient_id.age')
     gender = fields.Selection([('male', 'Male'), ('female', 'Female'), ('other', 'Other')])
     description = fields.Text()
@@ -75,3 +76,9 @@ class HospitalAppointmentMedicine(models.Model):
     name = fields.Char(string="Name", required=True)
     qty = fields.Integer(string='Quantity')
     appointment_id = fields.Many2one('hospital.appointment')
+
+class HospitalTags(models.Model):
+    _name = "hospital.tags"
+
+    name = fields.Char()
+    color = fields.Integer()
