@@ -40,6 +40,11 @@ class HospitalPatient(models.Model):
         tracking=True
     )
 
+    @api.model
+    def test_cron_job(self):
+        # raise ValidationError('errorrrrrrrrrrrrr!')
+        print('hey')
+    
     def action_confirm(self):
         self.state = 'confirm'
 

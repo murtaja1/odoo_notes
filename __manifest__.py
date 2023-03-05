@@ -13,6 +13,7 @@
     'data': [
         'security/ir.model.access.csv',
         'data/sequence.xml',
+        'data/cron.xml',
         'wizard/create_appointment_wizard.xml',
         'wizard/search_appointment_wizard.xml',
         'wizard/report_appointment_wizard.xml',

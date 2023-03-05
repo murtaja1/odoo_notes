@@ -224,7 +224,7 @@ def action_confirm(self):
 
 # 3. fields and attributes:
 
-## Views Attributes:
+## Views Attributes (XML):
 
 ### `sample="1"`: an attribute that's add to the `form or kanban` views to show sample data.
 
@@ -242,6 +242,8 @@ def action_confirm(self):
 
 ### `options="{'no_open':True}"`: added to `Many2one` field and used to make the field unclickable (you can't go the field record) option if the record does not exits.
 ### `options="{'color_field': '<field_name that has the color which is integer>'}"`: to show color of tags.
+
+### `widget="radio" options="{'horizontal': true}"`: added to selection field to make the field radio selection.
 ## Fields Attributes:
 
 ### `tracking=True`: means log any change to this field in the chatter.
@@ -1298,3 +1300,24 @@ class AllPatientReport(models.AbstractModel):
 <widget name="web_ribbon" bg_color="bg-danger" title="Archived" attrs="{'invisible': [('active','=',True)]}"/>
 ```
 ## `widget="many2many_tags"`: added to tags model, used to let you style set color of tags.
+
+# 19. Cron Job (Scheduled Action):
+### it's a record that calls a python method as request without the user intervening (automation).
+- to check the cron job in the UI go to `settings>technical>Automation>Scheduled Action`
+- to create a cron job follow these steps:
+1. create an xml file in `data folder`.
+```
+<record id="<id>" model="ir.cron">
+    <field name="name"><name></field>
+    <field name="model_id" ref="model_<model_name with underscore>"/>
+    <field name="state">code</field>
+    <field name="code">model.method_name()</field>
+    <field name="interval_number">1</field>
+    <field name="interval_type">days</field>
+    <field name="numbercall">-1</field>
+</record>
+```
+- `code`: add your method name from your model that's specified in model_id.
+- `interval_number`: how many times the cron job will run per the specified interval.
+- `interval_type`: can be minutes or hours or days or months.
+- `numbercall`: how many times the method is called. `-1` means forever.
