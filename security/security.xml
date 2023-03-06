@@ -15,4 +15,21 @@
         <field name="name">Doctor</field>
         <field name="category_id" ref="module_category_hospital"/>
     </record>
+
+    <record model="res.groups" id="group_hospital_patient_responsible">
+        <field name="name">Patient Responsible</field>
+        <field name="category_id" ref="module_category_hospital"/>
+        <field name="implied_ids" eval="[(4, ref('group_hospital_doctor'))]"/>
+    </record>
+
+    <!-- <record model="ir.rule" id="hospital_see_his_own_patient">
+        <field name="name">See His Patient Only</field>
+        <field name="model_id" ref="model_hospital_patient"/>
+        <field name="domain_force">[('age','=',10)]</field>
+        <field name="groups" eval="[(4, ref('group_hospital_patient_responsible'))]"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+        <field name="perm_read" eval="1"/>
+    </record> -->
 </odoo>

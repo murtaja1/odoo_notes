@@ -9,9 +9,9 @@
         <!-- <field name="context">{'search_default_group_by_gender': 1}</field> -->
     </record>
     <!-- a menu that has no parent which is the parent (the menu that appears in the dashboard ) which call an action-->
-    <menuitem id="hospital_management.root_menu" name="Hospital Management" action="hospital_management.hospital_patient_action" />
+    <menuitem id="hospital_management.root_menu" name="Hospital Management" action="hospital_management.hospital_patient_action"/>
     <!-- a menu item that depnds on the parent menu which does nothing -->
-    <menuitem id="hospital_management.operations_menu" name="Operations" parent="hospital_management.root_menu" sequence="10"/>
+    <menuitem id="hospital_management.operations_menu" name="Operations" parent="hospital_management.root_menu" sequence="10" groups="group_hospital_manager"/>
     <!-- a submenu item that depnds on the operations parent menu which calls an action -->
     <menuitem id="hospital_management.patients_menu" name="Patients" action="hospital_management.hospital_patient_action" parent="hospital_management.operations_menu" sequence="10"/>
 

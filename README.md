@@ -244,6 +244,8 @@ def action_confirm(self):
 ### `options="{'color_field': '<field_name that has the color which is integer>'}"`: to show color of tags.
 
 ### `widget="radio" options="{'horizontal': true}"`: added to selection field to make the field radio selection.
+
+### `groups="<group_id>"`: add to elements to restrict them to a particular group only.
 ## Fields Attributes:
 
 ### `tracking=True`: means log any change to this field in the chatter.
@@ -677,7 +679,7 @@ def name_get(self):
     return res
 ```
 
-# 9. Access Rights (Security):
+# 9. Access Rights and Record Rules  (Security):
 
 ## setting which user can access what.
 
@@ -722,6 +724,28 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
 </record>
 ```
 ### `note`: you can use this `group_id` in your `ir.model.access.csv` file in `group_id` section to set the group for your model.
+
+### you can inherit a group using `implied_ids`:
+- add this field inside the group record.
+```
+<field name="implied_ids" eval="[(4, ref('<group_id>'))]"/>
+```
+### `note`: everything the original group has, the new group  will have.
+
+## Record Rule:
+### it's a rule that's added to a model that only lets a group access some records based on a condition (records inside a model and not the whole model).
+```
+<record model="ir.rule" id="<id>">
+    <field name="name"><name></field>
+    <field name="model_id" ref="model_<model_name>"/>
+    <field name="domain_force">[('<field_name','=',<value>)]</field>
+    <field name="groups" eval="[(4, ref('<group_id>'))]"/>
+    <field name="perm_write" eval="1"/>
+    <field name="perm_create" eval="1"/>
+    <field name="perm_unlink" eval="0"/>
+    <field name="perm_read" eval="1"/>
+</record>
+```
 
 # 10. Views.
 
