@@ -5,7 +5,7 @@
     <record id="hospital_management.hospital_patient_action" model="ir.actions.act_window">
         <field name="name">Patients</field>
         <field name="res_model">hospital.patient</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">tree,form,kanban,activity</field>
         <!-- <field name="context">{'search_default_group_by_gender': 1}</field> -->
     </record>
     <!-- a menu that has no parent which is the parent (the menu that appears in the dashboard ) which call an action-->

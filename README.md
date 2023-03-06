@@ -246,6 +246,8 @@ def action_confirm(self):
 ### `widget="radio" options="{'horizontal': true}"`: added to selection field to make the field radio selection.
 
 ### `groups="<group_id>"`: add to elements to restrict them to a particular group only.
+
+### `groups="base.group_no_one"`: to make the field only visible in developer mode.
 ## Fields Attributes:
 
 ### `tracking=True`: means log any change to this field in the chatter.
@@ -749,7 +751,7 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
 
 # 10. Views.
 
-## Form View Template
+## `Form View Template`
 
 - `header`: where we added the status bar with button.
 - `sheet`: where we added the fields.
@@ -783,7 +785,7 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
 </record>
 ```
 
-## Notebook and pages:
+## `Notebook and pages`:
 
 - it's added inside the `form view`.
 
@@ -800,7 +802,7 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
 </notebook>
 ```
 
-## Tree View Template
+## `Tree View Template`
 
 ```
 <record id="hospital_management.hospital_appointment_tree" model="ir.ui.view">
@@ -815,7 +817,7 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
 </record>
 ```
 
-## Kanban View Template
+## `Kanban View Template`
 
 - add the fields first.
 - then add the fields inside the `template`.
@@ -850,7 +852,32 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
 </record>
 ```
 
-## Search View Template
+## `Activity View`:
+
+### add a `activity` inside the `view_mode` in the action.
+```
+<record id="hospital_patient_view_activity" model="ir.ui.view">
+    <field name="name">hospital.patient.view.activity</field>
+    <field name="model">hospital.patient</field>
+    <field name="arch" type="xml">
+        <activity string="Patients">
+            <field name="id"/>
+            <field name="name"/>
+            <templates>
+                <div t-name="activity-box">
+                    <img t-att-src="activity_image('hospital.patient', 'image', record.id.raw_value)" 
+                        t-att-title="record.id.value" t-att-alt="record.id.value"/>
+                    <field name="name"/>
+                </div>
+            </templates>
+        </activity>
+    </field>
+</record>
+```
+
+### `note`: define the field before using them in the template, and use the `id` of the record in image with the name of the image field you defined.
+
+## `Search View Template`
 
 ```
 <record id="hospital_management.hospital_patient_search" model="ir.ui.view">

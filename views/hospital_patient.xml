@@ -35,7 +35,7 @@
                         <field name="age"/>
                         <field name="appointment_count"/>
                         <field name='gender' invisible="context.get('hide_gender')"/>
-                        <field name='capitalize_name'/>
+                        <field name='capitalize_name' groups="base.group_no_one"/>
                     </group>
                     <notebook>
                         <page name="patient_appointments" string="Appointment lines">
@@ -54,6 +54,24 @@
                     <!-- to send a message -->
                 </div>
             </form>
+        </field>
+    </record>
+
+    <record id="hospital_patient_view_activity" model="ir.ui.view">
+        <field name="name">hospital.patient.view.activity</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <activity string="Patients">
+                <field name="id"/>
+                <field name="name"/>
+                <templates>
+                    <div t-name="activity-box">
+                        <img t-att-src="activity_image('hospital.patient', 'image', record.id.raw_value)" 
+                         t-att-title="record.id.value" t-att-alt="record.id.value"/>
+                        <field name="name"/>
+                    </div>
+                </templates>
+            </activity>
         </field>
     </record>
 
