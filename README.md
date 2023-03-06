@@ -677,7 +677,7 @@ def name_get(self):
     return res
 ```
 
-# 9. Access Rights:
+# 9. Access Rights (Security):
 
 ## setting which user can access what.
 
@@ -702,6 +702,26 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
 - `model_id:id`: hospital.patient
 - `group_id:id`: model_hospital_patient
 - `note`: if you want to prevent user from accessing something then set `perm_read,perm_write,perm_create,perm_unlink` to `0,0,0,0` instead of `1,1,1,1` to any of them.
+
+## `Create Groups`.
+### if you add this group to your model or element then only those who are inside this group can access that model or element.
+
+1. create file named `security.xml` in the `security` folder and add it in the `__manifest__.py`.
+2. in `security.xml` file create a `category` for the `groups`:
+```
+<record model="ir.module.category" id="module_category_<id>">
+    <field name="name"><name></field>
+    <field name="sequence">60</field>
+</record>
+```
+3. create your `groups`:
+```
+<record model="res.groups" id="group_<id>">
+    <field name="name"><name></field>
+    <field name="category_id" ref="<category_id>"/>
+</record>
+```
+### `note`: you can use this `group_id` in your `ir.model.access.csv` file in `group_id` section to set the group for your model.
 
 # 10. Views.
 

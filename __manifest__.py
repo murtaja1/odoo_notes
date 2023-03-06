@@ -12,6 +12,7 @@
     'depends': ['base','mail', 'sale'],
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'data/sequence.xml',
         'data/cron.xml',
         'wizard/create_appointment_wizard.xml',
