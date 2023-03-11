@@ -440,6 +440,17 @@ def unlink(self):
     return super(HospitalAppointment, self).unlink()
 ```
 
+## `write method`: 
+### to update a record use the write method:
+```
+def write(self, vals):
+    # action
+``` 
+### to update a record:
+```
+self.<record_name>.write({'<field_name>': <value>})
+```
+
 ## `method with constrains decorator`:
 
 ### used to prevent the user from doing something wrong, and gets called when saving the record.
@@ -854,7 +865,7 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
 
 ## `Activity View`:
 
-### add a `activity` inside the `view_mode` in the action.
+### add a `activity` inside the `view_mode` in the action, then:
 ```
 <record id="hospital_patient_view_activity" model="ir.ui.view">
     <field name="name">hospital.patient.view.activity</field>
