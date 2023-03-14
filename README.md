@@ -1403,3 +1403,51 @@ class AllPatientReport(models.AbstractModel):
 - `interval_number`: how many times the cron job will run per the specified interval.
 - `interval_type`: can be minutes or hours or days or months.
 - `numbercall`: how many times the method is called. `-1` means forever.
+# 20. Send an Email and Notifications:
+## `send an email`
+### in `data` folder create `mail_data.xml` file and add the following:
+```
+<record id="email_template_for_manager_approval_expense_report" model="mail.template">
+    <field name="name">Expense Report: Report Approvel</field>
+    <field name="model_id" ref="sh_expense_dynamic_approval.model_hr_expense_sheet" />
+    <field name="subject">Expense Report Approvel</field>
+    <field name="email_from"></field>
+    <field name="partner_to"></field>
+
+    <field name="body_html" type="html">
+        <div style="margin: 0px; padding: 0px;">
+            <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                This is inform you that the expense report is waiting your approval!<br />
+                You can use the following link to access the expense report.<br /><br />
+                <div style="display: inline-block; margin: 15px; text-align: center">
+                    <a t-att-href="'/mail/view?model=hr.expense.sheet&amp;res_id=%s'%object.id" target="_blank"
+                        style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px"
+                    >Expense Report Ref: #<t t-out="object.name or ''" /></a>
+                </div><br />
+                Thanks.
+            </p>
+        </div>
+    </field>
+</record>
+```
+### in your model add the following:
+```
+template_id = self.env.ref(
+        "sh_expense_dynamic_approval.email_template_for_manager_approval_expense_report")
+if template_id and self.user_id:
+    template_id.sudo().send_mail(self.id, force_send=True, email_values={
+        'email_from': self.env.user.email, 'email_to': self.user_id.partner_id.email})
+```
+## `send a notification`:
+### to send a notification add the following code in your model:
+```
+notifications = []
+if self.user_id:
+    notifications.append(
+                (self.user_id.partner_id, 'sh_notification_info', 
+                {'title': _('Notitification'),
+                    'message': 'The Expense Report %s is waiting your approval!' % (self.name)
+                }))
+
+    self.env['bus.bus']._sendmany(notifications)
+```
