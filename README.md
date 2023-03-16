@@ -475,6 +475,22 @@ def name_get(self):
     return res
 ```
 
+## `Overriding existing method and keeping its original functionality':
+```
+def action_cancel(self):
+    # Call the parent method using super to keep the original functionality
+    res = super(CustomSaleOrder, self).action_cancel()
+    
+    # Add your custom code here
+    
+    return res
+```
+## `Overriding existing method without keeping its original functionality':
+```
+def action_cancel(self):
+    # Add your custom code here
+```
+
 # 5. Sequential value:
 
 ### it's a value that is auto generated with every record.
