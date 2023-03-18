@@ -248,6 +248,7 @@ def action_confirm(self):
 ### `groups="<group_id>"`: add to elements to restrict them to a particular group only.
 
 ### `groups="base.group_no_one"`: to make the field only visible in developer mode.
+### `decoration-success="field_name == 'value'" decoration-info="" decoration-warning=""`: added with  `widget="badge"` to a field to give the field states color for the badge.
 ## Fields Attributes:
 
 ### `tracking=True`: means log any change to this field in the chatter.
@@ -1056,11 +1057,13 @@ self.env[<model_name>].create(<dict of the values>)
 
 # 16. Inherit and add to existing Module:
 
-## `add or override an attribute to already exits field:`
+## `add or override an attribute to an already exiting field:`
 
 ```
 <xpath expr="//field[@name='field_name']" position="attributes">
     <attribute name="attrs">{'readonly': [('state', 'in', ('done','cancel','sale'))]}</attribute>
+    # or
+    <attribute name="decoration-success">invoice_status == 'refunded'</attribute>
 </xpath>
 ```
 
