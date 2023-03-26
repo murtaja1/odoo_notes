@@ -241,6 +241,7 @@ def action_confirm(self):
 ### `options="{'no_create':True}"`: added to `Many2one` field and used to disable create option if the record does not exits.
 
 ### `options="{'no_open':True}"`: added to `Many2one` field and used to make the field unclickable (you can't go the field record) option if the record does not exits.
+
 ### `options="{'color_field': '<field_name that has the color which is integer>'}"`: to show color of tags.
 
 ### `widget="radio" options="{'horizontal': true}"`: added to selection field to make the field radio selection.
@@ -248,7 +249,9 @@ def action_confirm(self):
 ### `groups="<group_id>"`: add to elements to restrict them to a particular group only.
 
 ### `groups="base.group_no_one"`: to make the field only visible in developer mode.
-### `decoration-success="field_name == 'value'" decoration-info="" decoration-warning=""`: added with  `widget="badge"` to a field to give the field states color for the badge.
+
+### `decoration-success="field_name == 'value'" decoration-info="" decoration-warning=""`: added with `widget="badge"` to a field to give the field states color for the badge.
+
 ## Fields Attributes:
 
 ### `tracking=True`: means log any change to this field in the chatter.
@@ -258,12 +261,15 @@ def action_confirm(self):
 ### `expand="1"`: added in the `tree view` to expand the `group by` by default.
 
 ### `ondelete={'<selection_name>': 'cascade' or 'set null' or 'set default'}`: add to selection field so when uninstalling the module when specifying `cascade` the record that has this value will be deleted, `set null` will be set to null, `set default` will be set the field default value.
+
 ### `selection_add=[('test', 'Test')]`: used to add another option to an existing `selection field`.
+
 ### `selection_add=[('test', 'Test'), ('service',)]`: here it means you need to put the test option before the service option (changing the position visibility).
 
 ## fields:
 
-### `Many2many field`: create a model and link it in your model like this: 
+### `Many2many field`: create a model and link it in your model like this:
+
 ```
 tag_ids = fields.Many2many('<model_name>', string="Tags")
 ```
@@ -441,13 +447,17 @@ def unlink(self):
     return super(HospitalAppointment, self).unlink()
 ```
 
-## `write method`: 
+## `write method`:
+
 ### to update a record use the write method:
+
 ```
 def write(self, vals):
     # action
-``` 
+```
+
 ### to update a record:
+
 ```
 self.<record_name>.write({'<field_name>': <value>})
 ```
@@ -477,16 +487,19 @@ def name_get(self):
 ```
 
 ## `Overriding existing method and keeping its original functionality':
+
 ```
 def action_cancel(self):
     # Call the parent method using super to keep the original functionality
     res = super(CustomSaleOrder, self).action_cancel()
-    
+
     # Add your custom code here
-    
+
     return res
 ```
+
 ## `Overriding existing method without keeping its original functionality':
+
 ```
 def action_cancel(self):
     # Add your custom code here
@@ -694,9 +707,12 @@ self._context.get('active_id')
 ```
 
 ## context with name_get method:
+
 ### using context you can specify whether `rec_name` has a code or not.
+
 1. add an attribute `context="{'<whatever>': True}"`.
 2. use this field a condition like:
+
 ```
 def name_get(self):
     res = []
@@ -709,7 +725,7 @@ def name_get(self):
     return res
 ```
 
-# 9. Access Rights and Record Rules  (Security):
+# 9. Access Rights and Record Rules (Security):
 
 ## setting which user can access what.
 
@@ -736,34 +752,44 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
 - `note`: if you want to prevent user from accessing something then set `perm_read,perm_write,perm_create,perm_unlink` to `0,0,0,0` instead of `1,1,1,1` to any of them.
 
 ## `Create Groups`.
+
 ### if you add this group to your model or element then only those who are inside this group can access that model or element.
 
 1. create file named `security.xml` in the `security` folder and add it in the `__manifest__.py`.
 2. in `security.xml` file create a `category` for the `groups`:
+
 ```
 <record model="ir.module.category" id="module_category_<id>">
     <field name="name"><name></field>
     <field name="sequence">60</field>
 </record>
 ```
+
 3. create your `groups`:
+
 ```
 <record model="res.groups" id="group_<id>">
     <field name="name"><name></field>
     <field name="category_id" ref="<category_id>"/>
 </record>
 ```
+
 ### `note`: you can use this `group_id` in your `ir.model.access.csv` file in `group_id` section to set the group for your model.
 
 ### you can inherit a group using `implied_ids`:
+
 - add this field inside the group record.
+
 ```
 <field name="implied_ids" eval="[(4, ref('<group_id>'))]"/>
 ```
-### `note`: everything the original group has, the new group  will have.
+
+### `note`: everything the original group has, the new group will have.
 
 ## Record Rule:
+
 ### it's a rule that's added to a model that only lets a group access some records based on a condition (records inside a model and not the whole model).
+
 ```
 <record model="ir.rule" id="<id>">
     <field name="name"><name></field>
@@ -883,6 +909,7 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
 ## `Activity View`:
 
 ### add a `activity` inside the `view_mode` in the action, then:
+
 ```
 <record id="hospital_patient_view_activity" model="ir.ui.view">
     <field name="name">hospital.patient.view.activity</field>
@@ -893,7 +920,7 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
             <field name="name"/>
             <templates>
                 <div t-name="activity-box">
-                    <img t-att-src="activity_image('hospital.patient', 'image', record.id.raw_value)" 
+                    <img t-att-src="activity_image('hospital.patient', 'image', record.id.raw_value)"
                         t-att-title="record.id.value" t-att-alt="record.id.value"/>
                     <field name="name"/>
                 </div>
@@ -983,6 +1010,7 @@ def _compute_appointment_count(self):
 - if a menu is not a parent menu and doesn't have an action then it will be invisible.
 
 ### ValueError: product.template.detailed_type: required selection fields must define an ondelete policy that implements the proper cleanup of the corresponding records upon module uninstallation. Please use one or more of the following policies: 'set default' (if the field has a default defined), 'cascade', or ....
+
 ### when receiving such error, you need to use the `ondelete attribute`
 
 # 13. Wizard:
@@ -1116,6 +1144,15 @@ class SaleOrder(models.Model):
 </record>
 ```
 
+### if there is two field or elements in the same view or element, then you can access the first or second one... like this:
+
+```
+<xpath expr="//div[@class='o_td_label'][2]" position="attributes">
+    <attribute name="attrs">{'invisible': [('state', 'in', ['sent'])]}</attribute>
+</xpath>
+```
+### `[2]`: the number of the element, can be any number [1] or [2]...
+
 ### add it to the tree view record.
 
 ```
@@ -1148,8 +1185,11 @@ class SaleOrder(models.Model):
 ```
 
 ## `Hiding a print button from view`:
+
 ### to hide from the UI: go to `settings>technical>reporting>reports` then search the name of the report action. and click `hide from menu`.
+
 ### from the code:
+
 ```
 <record id="<external_id or xml_id>" model="ir.actions.report">
     <field name="binding_model_id" eval="False" />
@@ -1157,10 +1197,12 @@ class SaleOrder(models.Model):
 ```
 
 ## to override an existing inherited method:
+
 1. import the file where the method is written.
 2. override the method by creating the method with the same name.
-or 
+   or
 3. import the class where the method is defined and call it with your new method, like:
+
 ```
 from odoo.addons.sale.models.sale_order import SaleOrder as OdooSaleOrder
 
@@ -1169,7 +1211,9 @@ def _unlink_except_draft_or_cancel(self):
 
 OdooSaleOrder._unlink_except_draft_or_cancel = _unlink_except_draft_or_cancel
 ```
+
 ### `note` where reassigning odoo's original method with our new overridden method.
+
 # 17. PDF Reports:
 
 ### to create a report follow these steps:
@@ -1400,13 +1444,18 @@ class AllPatientReport(models.AbstractModel):
 ```
 <widget name="web_ribbon" bg_color="bg-danger" title="Archived" attrs="{'invisible': [('active','=',True)]}"/>
 ```
+
 ## `widget="many2many_tags"`: added to tags model, used to let you style set color of tags.
 
 # 19. Cron Job (Scheduled Action):
+
 ### it's a record that calls a python method as request without the user intervening (automation).
+
 - to check the cron job in the UI go to `settings>technical>Automation>Scheduled Action`
 - to create a cron job follow these steps:
+
 1. create an xml file in `data folder`.
+
 ```
 <record id="<id>" model="ir.cron">
     <field name="name"><name></field>
@@ -1418,13 +1467,18 @@ class AllPatientReport(models.AbstractModel):
     <field name="numbercall">-1</field>
 </record>
 ```
+
 - `code`: add your method name from your model that's specified in model_id.
 - `interval_number`: how many times the cron job will run per the specified interval.
 - `interval_type`: can be minutes or hours or days or months.
 - `numbercall`: how many times the method is called. `-1` means forever.
+
 # 20. Send an Email and Notifications:
+
 ## `send an email`
+
 ### in `data` folder create `mail_data.xml` file and add the following:
+
 ```
 <record id="email_template_for_manager_approval_expense_report" model="mail.template">
     <field name="name">Expense Report: Report Approvel</field>
@@ -1449,7 +1503,9 @@ class AllPatientReport(models.AbstractModel):
     </field>
 </record>
 ```
+
 ### in your model add the following:
+
 ```
 template_id = self.env.ref(
         "sh_expense_dynamic_approval.email_template_for_manager_approval_expense_report")
@@ -1457,13 +1513,16 @@ if template_id and self.user_id:
     template_id.sudo().send_mail(self.id, force_send=True, email_values={
         'email_from': self.env.user.email, 'email_to': self.user_id.partner_id.email})
 ```
+
 ## `send a notification`:
+
 ### to send a notification add the following code in your model:
+
 ```
 notifications = []
 if self.user_id:
     notifications.append(
-                (self.user_id.partner_id, 'sh_notification_info', 
+                (self.user_id.partner_id, 'sh_notification_info',
                 {'title': _('Notitification'),
                     'message': 'The Expense Report %s is waiting your approval!' % (self.name)
                 }))
