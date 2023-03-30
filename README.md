@@ -374,6 +374,33 @@ medicine_line_ids = fields.One2many('<model name>','appointment_id',string="Medi
 
 ### `note for relation fields`: when you choose many tags in the same field then it's `Many2many`, when it's dropdown then it's `Many2one`, when it's lines then `One2many`.
 
+### `Json Field`: it's a dictionary field like `analytic_distribution` field in `accounting in journal entries in journal items`.
+
+### to update the field or set it, do the following:
+
+```
+analytic_account = fields.Many2one('account.analytic.account','Analytic')
+
+def write(self, vals):
+    if vals.get('analytic_account'):
+        vals['analytic_distribution'] = {vals.get('analytic_account'): 100}
+    return super(AccountMoveLine, self).write(vals)
+
+@api.model_create_multi
+def create(self, vals):
+    for val in vals:
+        if val.get('analytic_account'):
+            val['analytic_distribution'] = {
+                val['analytic_account']: 100
+            }
+
+    return super(AccountMoveLine, self).create(vals)
+```
+
+### Here I'm creating new field and set the value of json based on the `analytic_account`:
+
+### setting the value like: analytic_distribution = {'<id of analytic_account>': 100}
+
 # 4. Methods:
 
 ## `create method:`
@@ -1151,6 +1178,7 @@ class SaleOrder(models.Model):
     <attribute name="attrs">{'invisible': [('state', 'in', ['sent'])]}</attribute>
 </xpath>
 ```
+
 ### `[2]`: the number of the element, can be any number [1] or [2]...
 
 ### add it to the tree view record.
@@ -1207,7 +1235,9 @@ class SaleOrder(models.Model):
 from odoo.addons.sale.models.sale_order import SaleOrder as OdooSaleOrder
 
 def _unlink_except_draft_or_cancel(self):
-    return super(SaleOrder,self).unlink()
+    res = super(SaleOrder,self).unlink()
+    # action
+    return res
 
 OdooSaleOrder._unlink_except_draft_or_cancel = _unlink_except_draft_or_cancel
 ```
