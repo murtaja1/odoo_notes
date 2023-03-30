@@ -1559,3 +1559,9 @@ if self.user_id:
 
     self.env['bus.bus']._sendmany(notifications)
 ```
+# 21. Database:
+### login to database:
+`$ psql -U admin -d <database_name> `
+### write the password as `admin`
+### to update the password of the odoo user, type the following command:
+`UPDATE res_users set password='admin',login='admin' where id=2;`
