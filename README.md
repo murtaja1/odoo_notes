@@ -22,6 +22,14 @@
 <menuitem id="hospital_management.patients_menu" name="Patients" action="hospital_management.hospital_patient_action" parent="hospital_management.operations_menu" sequence="10"/>
 ```
 
+## Hide a menu:
+### to hide a menu do the following:
+```
+<delete model="ir.ui.menu" id="<module_name.menu_id>"></delete>
+ex:
+<delete model="ir.ui.menu" id="hr_appraisal.menu_hr_appraisal_goal"></delete>
+```
+
 ## Actions:
 
 ### - an action is triggered after clicking the menu that has an action. like:
@@ -1388,6 +1396,7 @@ OdooSaleOrder._unlink_except_draft_or_cancel = _unlink_except_draft_or_cancel
 - `t-esc="<python code>or<field name>"`: type python code or field name too.
 - `t-set="<var name>" t-value="<value>"`: declare a variable and its value.
 
+### `Note`: you can access Pdf report from UI from `http://<server-address>/report/html/sale.report_saleorder/38`
 ## `Report form Wizard`:
 
 ### follow the same steps above with:
