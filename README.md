@@ -1574,3 +1574,8 @@ if self.user_id:
 ### write the password as `admin`
 ### to update the password of the odoo user, type the following command:
 `UPDATE res_users set password='admin',login='admin' where id=2;`
+
+# 21. Odoo Configuration:
+### to generate a Journal Entry from Inventory transfer:
+- go to `Product` then in product `General Information` tab, click on `Product Category`.
+- set the `Costing Method` to `Average Cost (AVCO)` and `Inventory Valuation` to `Automated`
