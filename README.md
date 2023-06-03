@@ -1555,6 +1555,16 @@ if template_id and self.user_id:
 
 ## `send a notification`:
 
+### most reliable one:
+```
+self.message_post(
+                body="<text>",
+                message_type='notification',
+                subtype_id=self.env.ref('mail.mt_comment').id,
+                partner_ids=[<partner_ids>],
+            )
+```
+
 ### to send a notification add the following code in your model:
 
 ```
