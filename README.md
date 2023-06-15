@@ -539,7 +539,7 @@ def action_cancel(self):
 def action_cancel(self):
     # Add your custom code here
 ```
-
+- `Note`: you must add the appropriate module in the `depends` in the `__manifest__.py` file for this to work.
 # 5. Sequential value:
 
 ### it's a value that is auto generated with every record.
