@@ -910,13 +910,14 @@ access_hospital_patient_user,hospital.patient,model_hospital_patient,base.group_
 
 - add the fields first.
 - then add the fields inside the `template`.
+- `records_draggable="0"`: to disable drag and drop that changes state.
 
 ```
 <record id="hospital_management.hospital_appointment_kanban_view" model="ir.ui.view">
     <field name="name">hospital.appointment.kanban</field>
     <field name="model">hospital.appointment</field>
     <field name="arch" type="xml">
-        <kanban>
+        <kanban records_draggable="0">
             <field name="ref"/>
             <field name="name"/>
             <template>
