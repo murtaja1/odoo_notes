@@ -1590,3 +1590,9 @@ if self.user_id:
 ### to generate a Journal Entry from Inventory transfer:
 - go to `Product` then in product `General Information` tab, click on `Product Category`.
 - set the `Costing Method` to `Average Cost (AVCO)` and `Inventory Valuation` to `Automated`
+
+# How to 
+### get users by group id.
+```
+users = self.env.ref('itsys_real_estate.group_real_estate_manager_discount_approval').users
+```
