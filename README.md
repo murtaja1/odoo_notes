@@ -1596,3 +1596,40 @@ if self.user_id:
 ```
 users = self.env.ref('itsys_real_estate.group_real_estate_manager_discount_approval').users
 ```
+### Create an invoice:
+```
+def make_invoice(self):
+    for rec in self:
+        account_move_obj = self.env['account.move']
+        journal_pool = self.env['account.journal']
+        journal = journal_pool.search([('type', '=', 'sale')], limit=1)
+        product_id = self.env['product.template'].search([('detailed_type', '=', 'service')], limit=1)
+        if not product_id:
+            raise UserError(_('There is no service product!'))
+        invoice_line_ids = []
+        invoice_line = {
+                            'name': ('Delivery Service'),
+                            'quantity': 1,
+                            'product_id': product_id.product_variant_id.id,
+                            'price_unit': rec.delivery_cost
+                            }
+        invoice_line_ids.append((0, None, invoice_line)) 
+            
+        invoice= account_move_obj.create({'ref': rec.ref, 'journal_id': journal.id,
+                                    'currency_id': rec.currency_id.id,
+                                    'partner_id': rec.receiver_id.id,
+                                    'move_type': 'out_invoice', 
+                                    'invoice_date_due': rec.actual_delivery_date,
+                                    'invoice_line_ids': invoice_line_ids,
+                                    })
+        invoice.action_post()
+        self.invoice_id = invoice.id
+```
+### Create a (monetary) Currency Field:
+```
+def _default_currency(self):
+    return self.env.user.company_id.currency_id
+currency_id = fields.Many2one('res.currency', string='Currency', default=_default_currency)
+cost = fields.Monetary(string='Value')
+```
+### 
