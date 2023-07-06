@@ -70,3 +70,5 @@ patch(
 ```
 - `patch` is used to override an existing component.
 ### `Note`: check `seed_accounting_customization` for the actual code.
+
+

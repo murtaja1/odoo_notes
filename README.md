@@ -1632,4 +1632,19 @@ def _default_currency(self):
 currency_id = fields.Many2one('res.currency', string='Currency', default=_default_currency)
 cost = fields.Monetary(string='Value')
 ```
-### 
+### get data from backend
+```
+	var rpc = require("web.rpc");
+
+rpc
+					.query({
+						model: "product.product",
+						method: "search_read",
+						args: [[["id", "=", id]], ["field_service"]],
+					})
+					.then(function (partners) {
+						// Process the fetched data
+						console.log(partners);
+						return partners
+					});
+```
