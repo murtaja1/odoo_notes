@@ -23,7 +23,9 @@
 ```
 
 ## Hide a menu:
+
 ### to hide a menu do the following:
+
 ```
 <delete model="ir.ui.menu" id="<module_name.menu_id>"></delete>
 ex:
@@ -539,7 +541,9 @@ def action_cancel(self):
 def action_cancel(self):
     # Add your custom code here
 ```
+
 - `Note`: you must add the appropriate module in the `depends` in the `__manifest__.py` file for this to work.
+
 # 5. Sequential value:
 
 ### it's a value that is auto generated with every record.
@@ -685,6 +689,15 @@ def create(self, vals_list):
 
 ```
 <field name="domain">[('age', '&lt;=', '18'), ('gender', '=', 'male')]</field>
+```
+
+### if you want to use both operators:
+
+```
+<button id="validate_closing_control" name="action_pos_session_closing_control" type="object" string="Close Session &amp; Post Entries" states="closing_control"
+                            attrs="{'invisible': [ '|', '&amp;',('state', '!=', 'closing_control'), ('rescue', '=', False),
+                                '&amp;',('state', '=', 'closed'), ('rescue', '=', True)]}"
+                    class="oe_highlight"/>
 ```
 
 # 8. Context:
@@ -1398,6 +1411,7 @@ OdooSaleOrder._unlink_except_draft_or_cancel = _unlink_except_draft_or_cancel
 - `t-set="<var name>" t-value="<value>"`: declare a variable and its value.
 
 ### `Note`: you can access Pdf report from UI from `http://<server-address>/report/html/sale.report_saleorder/38`
+
 ## `Report form Wizard`:
 
 ### follow the same steps above with:
@@ -1557,6 +1571,7 @@ if template_id and self.user_id:
 ## `send a notification`:
 
 ### most reliable one:
+
 ```
 self.message_post(
                 body="<text>",
@@ -1579,24 +1594,36 @@ if self.user_id:
 
     self.env['bus.bus']._sendmany(notifications)
 ```
+
 # 21. Database:
+
 ### login to database:
+
 `$ psql -U admin -d <database_name> `
+
 ### write the password as `admin`
+
 ### to update the password of the odoo user, type the following command:
+
 `UPDATE res_users set password='admin',login='admin' where id=2;`
 
 # 21. Odoo Configuration:
+
 ### to generate a Journal Entry from Inventory transfer:
+
 - go to `Product` then in product `General Information` tab, click on `Product Category`.
 - set the `Costing Method` to `Average Cost (AVCO)` and `Inventory Valuation` to `Automated`
 
-# How to 
+# How to
+
 ### get users by group id.
+
 ```
 users = self.env.ref('itsys_real_estate.group_real_estate_manager_discount_approval').users
 ```
+
 ### Create an invoice:
+
 ```
 def make_invoice(self):
     for rec in self:
@@ -1613,26 +1640,30 @@ def make_invoice(self):
                             'product_id': product_id.product_variant_id.id,
                             'price_unit': rec.delivery_cost
                             }
-        invoice_line_ids.append((0, None, invoice_line)) 
-            
+        invoice_line_ids.append((0, None, invoice_line))
+
         invoice= account_move_obj.create({'ref': rec.ref, 'journal_id': journal.id,
                                     'currency_id': rec.currency_id.id,
                                     'partner_id': rec.receiver_id.id,
-                                    'move_type': 'out_invoice', 
+                                    'move_type': 'out_invoice',
                                     'invoice_date_due': rec.actual_delivery_date,
                                     'invoice_line_ids': invoice_line_ids,
                                     })
         invoice.action_post()
         self.invoice_id = invoice.id
 ```
+
 ### Create a (monetary) Currency Field:
+
 ```
 def _default_currency(self):
     return self.env.user.company_id.currency_id
 currency_id = fields.Many2one('res.currency', string='Currency', default=_default_currency)
 cost = fields.Monetary(string='Value')
 ```
+
 ### get data from backend
+
 ```
 	var rpc = require("web.rpc");
 
