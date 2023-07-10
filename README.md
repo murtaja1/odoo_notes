@@ -1667,15 +1667,20 @@ cost = fields.Monetary(string='Value')
 ```
 	var rpc = require("web.rpc");
 
-rpc
-					.query({
-						model: "product.product",
-						method: "search_read",
-						args: [[["id", "=", id]], ["field_service"]],
-					})
-					.then(function (partners) {
-						// Process the fetched data
-						console.log(partners);
-						return partners
-					});
+rpc.query({
+    model: "product.product",
+    method: "search_read",
+    args: [[["id", "=", id]], ["field_service"]],
+})
+.then(function (partners) {
+    // Process the fetched data
+    console.log(partners);
+    return partners
+});
 ```
+### extend Odoo's database expiration date:
+1. open inspector and hover over the whole page.
+2. remove the style that makes Odoo unclickable.
+3. go to `settings/technical/Parameters/System Parameters`.
+4. edit or create a record with the name `database.expiration_date`.
+    - add date with this format `YYYY-MM-DD HH:MM:SS` ex. `2222-1-1 10:10:10`.
