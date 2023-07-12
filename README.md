@@ -1678,9 +1678,16 @@ rpc.query({
     return partners
 });
 ```
+
 ### extend Odoo's database expiration date:
+
 1. open inspector and hover over the whole page.
 2. remove the style that makes Odoo unclickable.
 3. go to `settings/technical/Parameters/System Parameters`.
 4. edit or create a record with the name `database.expiration_date`.
-    - add date with this format `YYYY-MM-DD HH:MM:SS` ex. `2222-1-1 10:10:10`.
+   - add date with this format `YYYY-MM-DD HH:MM:SS` ex. `2222-1-1 10:10:10`.
+
+### To access an element that has no id or name:
+
+1. open the view with browser inspector.
+2. go to the element and click copy then copy XPath.
