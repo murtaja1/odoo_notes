@@ -260,6 +260,8 @@ def action_confirm(self):
 
 ### `groups="base.group_no_one"`: to make the field only visible in developer mode.
 
+### `password`: to make a password like field.
+
 ### `decoration-success="field_name == 'value'" decoration-info="" decoration-warning=""`: added with `widget="badge"` to a field to give the field states color for the badge.
 
 ## Fields Attributes:
