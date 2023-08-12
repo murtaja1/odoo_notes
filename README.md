@@ -1693,3 +1693,7 @@ rpc.query({
 
 1. open the view with browser inspector.
 2. go to the element and click copy then copy XPath.
+
+### Create Time field:
+1. create a float field.
+2. add widget="float_time" in xml.
