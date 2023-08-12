@@ -1697,3 +1697,6 @@ rpc.query({
 ### Create Time field:
 1. create a float field.
 2. add widget="float_time" in xml.
+
+### Upgrade module from CMD:
+- `odoo -c /etc/odoo/odoo.conf -d database_name -u module_name`
