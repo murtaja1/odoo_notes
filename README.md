@@ -1700,3 +1700,39 @@ rpc.query({
 
 ### Upgrade module from CMD:
 - `odoo -c /etc/odoo/odoo.conf -d database_name -u module_name`
+### Server Setup:
+1. update server and install nginx:
+```
+sudo apt update
+sudo apt install nginx
+```
+2. Configure Nginx for Odoo:
+```
+sudo nano /etc/nginx/sites-available/odoo
+
+server {
+    listen 80;
+    server_name your-domain.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:8069;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
+```
+
+3. Enable the Configuration:
+```
+sudo ln -s /etc/nginx/sites-available/odoo /etc/nginx/sites-enabled
+sudo service nginx reload
+```
+4. DNS Configuration:
+Update your DNS records to point your custom domain (your-domain.com) to the IP address of your server.
+
+### Get all the users that belong to a group Odoo15:
+```
+self.env.ref("model.group_id").users.ids
+```
