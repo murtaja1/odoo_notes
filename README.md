@@ -1745,3 +1745,21 @@ self.env.ref("model.group_id").users.ids
     <span>%%</span>
 </div>
 ```
+### Send notification to group with users:
+```
+hr_user_ids = self.env.ref("module.id").users
+            for user in hr_user_ids:
+                partner_ids.append(user.employee_id.id)
+            self.message_post(
+                    body="You have an overtime request to approve!",
+                    message_type='notification',
+                    subtype_id=self.env.ref('mail.mt_comment').id,
+                    partner_ids=partner_ids,
+                )
+```
+
+### add Pdf or image previewer: 
+- add after the sheet tag.
+```
+<div class="o_attachment_preview" attrs="{'invisible': []}"/>
+```
