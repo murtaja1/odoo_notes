@@ -1736,3 +1736,12 @@ Update your DNS records to point your custom domain (your-domain.com) to the IP 
 ```
 self.env.ref("model.group_id").users.ids
 ```
+
+### Add label to field:
+```
+<label for="total_progression"/>
+<div class="o_row" style="width: 55px !important">
+    <field name="total_progression" readonly="1" force_save="1"/>
+    <span>%%</span>
+</div>
+```
