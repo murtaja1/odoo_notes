@@ -1763,3 +1763,7 @@ hr_user_ids = self.env.ref("module.id").users
 ```
 <div class="o_attachment_preview" attrs="{'invisible': []}"/>
 ```
+### if user has group: 
+```
+self.env.user.has_group('sh_return_invoice_bill.group_approve_return_transfer')
+```
