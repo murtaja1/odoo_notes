@@ -1695,18 +1695,25 @@ rpc.query({
 2. go to the element and click copy then copy XPath.
 
 ### Create Time field:
+
 1. create a float field.
 2. add widget="float_time" in xml.
 
 ### Upgrade module from CMD:
+
 - `odoo -c /etc/odoo/odoo.conf -d database_name -u module_name`
+
 ### Server Setup:
+
 1. update server and install nginx:
+
 ```
 sudo apt update
 sudo apt install nginx
 ```
+
 2. Configure Nginx for Odoo:
+
 ```
 sudo nano /etc/nginx/sites-available/odoo
 
@@ -1725,19 +1732,23 @@ server {
 ```
 
 3. Enable the Configuration:
+
 ```
 sudo ln -s /etc/nginx/sites-available/odoo /etc/nginx/sites-enabled
 sudo service nginx reload
 ```
+
 4. DNS Configuration:
-Update your DNS records to point your custom domain (your-domain.com) to the IP address of your server.
+   Update your DNS records to point your custom domain (your-domain.com) to the IP address of your server.
 
 ### Get all the users that belong to a group Odoo15:
+
 ```
 self.env.ref("model.group_id").users.ids
 ```
 
 ### Add label to field:
+
 ```
 <label for="total_progression"/>
 <div class="o_row" style="width: 55px !important">
@@ -1745,7 +1756,9 @@ self.env.ref("model.group_id").users.ids
     <span>%%</span>
 </div>
 ```
+
 ### Send notification to group with users:
+
 ```
 hr_user_ids = self.env.ref("module.id").users
             for user in hr_user_ids:
@@ -1758,12 +1771,22 @@ hr_user_ids = self.env.ref("module.id").users
                 )
 ```
 
-### add Pdf or image previewer: 
+### add Pdf or image previewer:
+
 - add after the sheet tag.
+
 ```
 <div class="o_attachment_preview" attrs="{'invisible': []}"/>
 ```
-### if user has group: 
+
+### if user has group:
+
 ```
 self.env.user.has_group('sh_return_invoice_bill.group_approve_return_transfer')
+```
+
+### current user:
+
+```
+self.env.user
 ```
