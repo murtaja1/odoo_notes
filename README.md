@@ -1728,7 +1728,11 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 }
-
+```
+- restart Odoo Service:
+```
+sudo systemctl status odoo
+sudo systemctl restart odoo
 ```
 
 3. Enable the Configuration:
@@ -1796,3 +1800,4 @@ self.env.user
 - And click default access right. In that you can select user type as Internal user.
 - Make sure all this stuff you have to do in debug mode, otherwise you can see advanced options.
 ref: https://www.odoo.com/pt_BR/forum/ajuda-1/odoo-12-how-to-make-signup-for-internal-user-147374
+
