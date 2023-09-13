@@ -1729,7 +1729,9 @@ server {
     }
 }
 ```
+
 - restart Odoo Service:
+
 ```
 sudo systemctl status odoo
 sudo systemctl restart odoo
@@ -1794,10 +1796,18 @@ self.env.user.has_group('sh_return_invoice_bill.group_approve_return_transfer')
 ```
 self.env.user
 ```
+
 ### change User Registration from portal to internal user:
-- Go to Settings >> General Settings. 
-- In that select Free sign up  option for customer account in Users section. 
+
+- Go to Settings >> General Settings.
+- In that select Free sign up option for customer account in Users section.
 - And click default access right. In that you can select user type as Internal user.
 - Make sure all this stuff you have to do in debug mode, otherwise you can see advanced options.
-ref: https://www.odoo.com/pt_BR/forum/ajuda-1/odoo-12-how-to-make-signup-for-internal-user-147374
+  ref: https://www.odoo.com/pt_BR/forum/ajuda-1/odoo-12-how-to-make-signup-for-internal-user-147374
 
+### Currency Conversion:
+```
+def _convert_currency(self):
+        for rec in self:
+            rec.main_price = rec.original_currency_id.with_context(date = rec.create_date).compute(rec.price, self.env.company.target_currency_id)
+```
