@@ -1811,3 +1811,11 @@ def _convert_currency(self):
         for rec in self:
             rec.main_price = rec.original_currency_id.with_context(date = rec.create_date).compute(rec.price, self.env.company.target_currency_id)
 ```
+### Change Wizard Footer:
+- add the following in the wizard form:
+```
+ <footer>
+    <button id="button_print" type="object" name="action_print_patient" string="Print" class='btn-primary'/>
+    <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z"/>
+</footer>
+```
