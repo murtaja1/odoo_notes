@@ -1819,3 +1819,9 @@ def _convert_currency(self):
     <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z"/>
 </footer>
 ```
+### view image from URL:
+```
+http://localhost:8069/web/image?model=colorify.image.image&id=1&field=colored_image&unique=1690830299000
+http://localhost:8069/web/image?model=<model.name>&id=<record_id>&field=<field_name>&unique=1690830299000
+```
+- to used as logged in, add the header in the network widget in flutter.
