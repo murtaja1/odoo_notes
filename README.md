@@ -1824,6 +1824,11 @@ def _convert_currency(self):
 http://localhost:8069/web/image?model=colorify.image.image&id=1&field=colored_image&unique=1690830299000
 http://localhost:8069/web/image?model=<model.name>&id=<record_id>&field=<field_name>&unique=1690830299000
 ```
+### Add image in report:
+```
+
+<img style="width:150px;height:150px" t-attf-src="/web/image?model=colorify.imageqr&amp;id=1&amp;field=qr_code" alt=""/>
+```
 - to used as logged in, add the header in the network widget in flutter.
 ### Create unique field:
 ```
