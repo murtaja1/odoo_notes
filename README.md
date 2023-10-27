@@ -1825,3 +1825,9 @@ http://localhost:8069/web/image?model=colorify.image.image&id=1&field=colored_im
 http://localhost:8069/web/image?model=<model.name>&id=<record_id>&field=<field_name>&unique=1690830299000
 ```
 - to used as logged in, add the header in the network widget in flutter.
+### Create unique field:
+```
+_sql_constraints = [
+						('your_field_name_unique', 'unique(your_field_name)', "Can't be duplicate value for this field!")
+						]
+```
