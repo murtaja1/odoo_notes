@@ -1836,3 +1836,9 @@ _sql_constraints = [
 						('your_field_name_unique', 'unique(your_field_name)', "Can't be duplicate value for this field!")
 						]
 ```
+### Fix PDF reports alignment:
+#### this can happen due to database backup or changing the system.
+1. go to `Settings/Technical/System Parameters`.
+2. search for `report.url` if not there create one.
+3. the `key` should be `report.url`, and the `value` should be `the domain or IP of Odoo`.
+- check `https://www.youtube.com/watch?v=lC9p_QJUW1Q&list=PLqRRLx0cl0hoiTewSTzSQ3HJ-Vqhh43k0&index=4`
