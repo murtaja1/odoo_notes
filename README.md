@@ -1605,7 +1605,7 @@ if self.user_id:
 
 ### write the password as `admin`
 
-### to update the password of the odoo user, type the following command:
+### to update the password of the Odoo user, type the following command:
 
 `UPDATE res_users set password='admin',login='admin' where id=2;`
 
@@ -1842,3 +1842,8 @@ _sql_constraints = [
 2. search for `report.url` if not there create one.
 3. the `key` should be `report.url`, and the `value` should be `the domain or IP of Odoo`.
 - check `https://www.youtube.com/watch?v=lC9p_QJUW1Q&list=PLqRRLx0cl0hoiTewSTzSQ3HJ-Vqhh43k0&index=4`
+
+### Use specific view in a related field:
+```
+<field name="field_name_id" context="{'tree_view_ref': 'approvals.approval_product_line_view_tree', 'kanban_view_ref': 'approvals.approval_product_kanban_mobile_view'}" />
+```
