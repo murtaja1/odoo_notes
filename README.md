@@ -1847,3 +1847,51 @@ _sql_constraints = [
 ```
 <field name="field_name_id" context="{'tree_view_ref': 'approvals.approval_product_line_view_tree', 'kanban_view_ref': 'approvals.approval_product_kanban_mobile_view'}" />
 ```
+
+### Set a custom field in the configuration:
+```
+class ResConfigSettings(models.TransientModel):
+    _inherit = 'res.config.settings'
+
+    discount_product_id = fields.Many2one('product.template', string='Discount Product') 
+
+# used to set the value in the field
+    def set_values(self):
+        super(ResConfigSettings, self).set_values()
+        set_param = self.env['ir.config_parameter'].sudo().set_param
+        set_param('product_template.discount_product_id', int(self.discount_product_id.id))
+
+# used to show the value in the field
+    @api.model
+    def get_values(self):
+        res = super(ResConfigSettings, self).get_values()
+        get_param = self.env['ir.config_parameter'].sudo().get_param
+        res['discount_product_id'] = int(get_param('product_template.discount_product_id'))
+        return res
+##########
+
+    <record id="res_config_settings_sale_order_discount_product_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="20"/>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='show_margins']" position="after">
+
+                <div class="col-12 col-lg-6 o_setting_box" id="discount_product_id_field">
+                    <div class="o_setting_left_pane"/>
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">Discount Prodout</span>
+                        <div class="text-muted">
+                            Product used in the sale order discount line.
+                        </div>
+                        <div>
+                            <field name="discount_product_id"/>
+                        </div>
+                    </div>
+                </div>
+
+            </xpath>
+        </field>
+    </record>
+```
