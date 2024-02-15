@@ -1901,3 +1901,7 @@ class ResConfigSettings(models.TransientModel):
 ```
 $ .\python.exe -m pip install <package_name>
 ```
+### Add confirmation to button:
+```
+<button name="name" type="object" string="Confirm" class="btn-primary" confirm="Are you sure you want to confirm?"/>
+```
