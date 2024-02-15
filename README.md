@@ -1895,3 +1895,9 @@ class ResConfigSettings(models.TransientModel):
         </field>
     </record>
 ```
+
+### To install external python package:
+- go to python and run:
+```
+$ .\python.exe -m pip install <package_name>
+```
