@@ -657,7 +657,7 @@ def create(self, vals_list):
 
 ## `SearchPanel`:
 
-### it's a side bar that's used to filter and search the records based on `many2one, selection` fields.
+### it's a sidebar that's used to filter and search the records based on `many2one, selection` fields.
 
 ```
 <searchpanel>
