@@ -1905,3 +1905,42 @@ $ .\python.exe -m pip install <package_name>
 ```
 <button name="name" type="object" string="Confirm" class="btn-primary" confirm="Are you sure you want to confirm?"/>
 ```
+
+### To override the search when searching in relation fields:
+- use name search method.
+```
+@api.model
+def _name_search(self, name, args=None, operator="ilike", limit=100, name_get_uid=None):
+    # rest of the code.
+    return ids
+```
+
+### Make a computed field searchable:
+- add the search attribute in the field.
+```
+field_name = fields.Boolean(compute="_compute_field_name", search="_search_field_name")
+
+@api.depends("user_ids")
+def _compute_field_name(self):
+    for record in self:
+        for user in record.user_ids:
+            if user.has_group("id"):
+                record.field_name = True
+                break
+        if not record.field_name:
+            record.field_name = False
+
+@api.model
+def _search_field_name(self, args, limit=None, order=None, offset=0):
+    group_id = self.env.ref("id").id
+    record_ids = self.env["res.partner"].search(
+        [
+            (
+                "user_ids.groups_id",
+                "in",
+                group_id,
+            )
+        ]
+    )
+    return [("id", "in", record_ids.ids)]
+```
