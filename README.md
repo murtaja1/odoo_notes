@@ -1768,7 +1768,7 @@ self.env.ref("model.group_id").users.ids
 ```
 hr_user_ids = self.env.ref("module.id").users
             for user in hr_user_ids:
-                partner_ids.append(user.employee_id.id)
+                partner_ids.append(user.partner_id.id)
             self.message_post(
                     body="You have an overtime request to approve!",
                     message_type='notification',
