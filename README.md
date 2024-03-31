@@ -1944,3 +1944,18 @@ def _search_field_name(self, args, limit=None, order=None, offset=0):
     )
     return [("id", "in", record_ids.ids)]
 ```
+
+### Override action window: 
+```
+<record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
+    <field name="domain">[('is_return_order','=', False)]</field>
+</record>
+```
+### Specify Tree and Form views for an action:
+- Add the following to the action:
+```
+<field name="view_ids" eval="[(5, 0, 0),
+    (0, 0, {'view_mode': 'tree', 'view_id': ref('view_quotation_cut_off_tree')}),
+    (0, 0, {'view_mode': 'form', 'view_id': ref('sale_order_cut_off_form_view')}),
+    ]"/>
+```
