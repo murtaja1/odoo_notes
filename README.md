@@ -1983,3 +1983,7 @@ def _mail_track(self, tracked_fields, initial_values):
                 tracking_value_ids.append(Command.create(vals))
     return changes, tracking_value_ids
 ```
+### Close wizard when download report
+```
+report_action.update({'close_on_report_download': True})
+```
