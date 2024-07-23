@@ -411,7 +411,7 @@ def create(self, vals):
 
 ### Here I'm creating new field and set the value of json based on the `analytic_account`:
 
-### setting the value like: analytic_distribution = {'<id of analytic_account>': 100}
+### setting the value like: analytic_distribution =
 
 # 4. Methods:
 
@@ -678,27 +678,27 @@ def create(self, vals_list):
 ### Domain with one field:
 
 ```
-<field name="domain">[('age', '&lt;=', '18')]</field>
+<field name="domain">[('age', '<=', '18')]</field>
 ```
 
 ### Domain with one field and `or` operator:
 
 ```
-<field name="domain">['|',('age', '&lt;=', '18'), ('gender', '=', 'male')]</field>
+<field name="domain">['|',('age', '<=', '18'), ('gender', '=', 'male')]</field>
 ```
 
 ### Domain with one field and `and` operator:
 
 ```
-<field name="domain">[('age', '&lt;=', '18'), ('gender', '=', 'male')]</field>
+<field name="domain">[('age', '<=', '18'), ('gender', '=', 'male')]</field>
 ```
 
 ### if you want to use both operators:
 
 ```
-<button id="validate_closing_control" name="action_pos_session_closing_control" type="object" string="Close Session &amp; Post Entries" states="closing_control"
-                            attrs="{'invisible': [ '|', '&amp;',('state', '!=', 'closing_control'), ('rescue', '=', False),
-                                '&amp;',('state', '=', 'closed'), ('rescue', '=', True)]}"
+<button id="validate_closing_control" name="action_pos_session_closing_control" type="object" string="Close Session & Post Entries" states="closing_control"
+                            attrs="{'invisible': [ '|', '&',('state', '!=', 'closing_control'), ('rescue', '=', False),
+                                '&',('state', '=', 'closed'), ('rescue', '=', True)]}"
                     class="oe_highlight"/>
 ```
 
@@ -1549,7 +1549,7 @@ class AllPatientReport(models.AbstractModel):
                 This is inform you that the expense report is waiting your approval!<br />
                 You can use the following link to access the expense report.<br /><br />
                 <div style="display: inline-block; margin: 15px; text-align: center">
-                    <a t-att-href="'/mail/view?model=hr.expense.sheet&amp;res_id=%s'%object.id" target="_blank"
+                    <a t-att-href="'/mail/view?model=hr.expense.sheet&res_id=%s'%object.id" target="_blank"
                         style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px"
                     >Expense Report Ref: #<t t-out="object.name or ''" /></a>
                 </div><br />
@@ -1806,49 +1806,66 @@ self.env.user
   ref: https://www.odoo.com/pt_BR/forum/ajuda-1/odoo-12-how-to-make-signup-for-internal-user-147374
 
 ### Currency Conversion:
+
 ```
 def _convert_currency(self):
         for rec in self:
             rec.main_price = rec.original_currency_id.with_context(date = rec.create_date).compute(rec.price, self.env.company.target_currency_id)
 ```
+
 ### Change Wizard Footer:
+
 - add the following in the wizard form:
+
 ```
  <footer>
     <button id="button_print" type="object" name="action_print_patient" string="Print" class='btn-primary'/>
     <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z"/>
 </footer>
 ```
+
 ### view image from URL:
+
 ```
 http://localhost:8069/web/image?model=colorify.image.image&id=1&field=colored_image&unique=1690830299000
 http://localhost:8069/web/image?model=<model.name>&id=<record_id>&field=<field_name>&unique=1690830299000
 ```
+
 ### Add image in report:
+
 ```
 
-<img style="width:150px;height:150px" t-attf-src="/web/image?model=colorify.imageqr&amp;id=1&amp;field=qr_code" alt=""/>
+<img style="width:150px;height:150px" t-attf-src="/web/image?model=colorify.imageqr&id=1&field=qr_code" alt=""/>
 ```
+
 - to used as logged in, add the header in the network widget in flutter.
+
 ### Create unique field:
+
 ```
 _sql_constraints = [
 						('your_field_name_unique', 'unique(your_field_name)', "Can't be duplicate value for this field!")
 						]
 ```
+
 ### Fix PDF reports alignment:
+
 #### this can happen due to database backup or changing the system.
+
 1. go to `Settings/Technical/System Parameters`.
 2. search for `report.url` if not there create one.
 3. the `key` should be `report.url`, and the `value` should be `the domain or IP of Odoo`.
+
 - check `https://www.youtube.com/watch?v=lC9p_QJUW1Q&list=PLqRRLx0cl0hoiTewSTzSQ3HJ-Vqhh43k0&index=4`
 
 ### Use specific view in a related field:
+
 ```
 <field name="field_name_id" context="{'tree_view_ref': 'approvals.approval_product_line_view_tree', 'kanban_view_ref': 'approvals.approval_product_kanban_mobile_view'}" />
 ```
 
 ### Set a custom field in the configuration:
+
 ```
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
@@ -1897,17 +1914,23 @@ class ResConfigSettings(models.TransientModel):
 ```
 
 ### To install external python package:
+
 - go to python and run:
+
 ```
 $ .\python.exe -m pip install <package_name>
 ```
+
 ### Add confirmation to button:
+
 ```
 <button name="name" type="object" string="Confirm" class="btn-primary" confirm="Are you sure you want to confirm?"/>
 ```
 
 ### To override the search when searching in relation fields:
+
 - use name search method.
+
 ```
 @api.model
 def _name_search(self, name, args=None, operator="ilike", limit=100, name_get_uid=None):
@@ -1916,7 +1939,9 @@ def _name_search(self, name, args=None, operator="ilike", limit=100, name_get_ui
 ```
 
 ### Make a computed field searchable:
+
 - add the search attribute in the field.
+
 ```
 field_name = fields.Boolean(compute="_compute_field_name", search="_search_field_name")
 
@@ -1945,21 +1970,27 @@ def _search_field_name(self, args, limit=None, order=None, offset=0):
     return [("id", "in", record_ids.ids)]
 ```
 
-### Override action window: 
+### Override action window:
+
 ```
 <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
     <field name="domain">[('is_return_order','=', False)]</field>
 </record>
 ```
+
 ### Specify Tree and Form views for an action:
+
 - Add the following to the action:
+
 ```
 <field name="view_ids" eval="[(5, 0, 0),
     (0, 0, {'view_mode': 'tree', 'view_id': ref('view_quotation_cut_off_tree')}),
     (0, 0, {'view_mode': 'form', 'view_id': ref('sale_order_cut_off_form_view')}),
     ]"/>
 ```
+
 ### Add tracking to many2many field:
+
 - add the following method in the model after setting `tracking=True` in your field.
 
 ```
@@ -1983,7 +2014,16 @@ def _mail_track(self, tracked_fields, initial_values):
                 tracking_value_ids.append(Command.create(vals))
     return changes, tracking_value_ids
 ```
+
 ### Close wizard when download report
+
 ```
 report_action.update({'close_on_report_download': True})
+```
+### Use existing view in a field:
+- context="{'tree_view_ref': 'approvals.approval_product_line_view_tree'}".
+- ex:
+```
+<field name="product_line_ids" context="{'tree_view_ref': 'approvals.approval_product_line_view_tree'}"/>
+
 ```
