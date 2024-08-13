@@ -2027,3 +2027,69 @@ report_action.update({'close_on_report_download': True})
 <field name="product_line_ids" context="{'tree_view_ref': 'approvals.approval_product_line_view_tree'}"/>
 
 ```
+### Access xml code in python:
+- Odoo 15 
+``` 
+def fields_view_get(
+        self, view_id=None, view_type="form", toolbar=False, submenu=False
+    ):
+    res = super(OpenSPPIndividual, self).fields_view_get(
+        view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu
+    )
+
+    has_readonly_group = self.env.user.has_group(
+        "pds_registry.group_g2p_registrar_readonly"
+    ) 
+
+    if not has_readonly_group:
+        return res
+
+    if has_readonly_group:
+        if view_type == "tree":
+            doc = etree.XML(res["arch"])
+            for node in doc.xpath("//tree"):
+                node.set("edit", "0")
+                node.set("create", "0")
+                node.set("delete", "0")
+            res["arch"] = etree.tostring(doc)
+        if view_type == "form":
+            doc = etree.XML(res["arch"])
+            for node in doc.xpath("//form"):
+                node.set("edit", "0")
+                node.set("create", "0")
+                node.set("delete", "0")
+            for node in doc.xpath("//button[@name='change_individual_status']"):
+                node.set("modifiers", '{"invisible": true}')
+            for node in doc.xpath("//button[@name='enable_registrant']"):
+                node.set("modifiers", '{"invisible": true}')
+            for button in doc.xpath("//button[@type='action']"):
+                button.set("modifiers", '{"invisible": true}')
+                break
+            res["arch"] = etree.tostring(doc)
+        # Hide server actions
+        if res.get("toolbar") and res["toolbar"].get("action"):
+            res["toolbar"]["action"] = []
+    return res
+```
+- Odoo 16
+```
+@api.model
+def get_view(self, view_id=None, view_type='form', **options):
+    res = super(ResPartner, self).get_view(view_id, view_type, **options)
+    if view_type == 'form':
+        doc = etree.XML(res['arch'])
+        
+        for field in doc.xpath("//field"):
+            modifiers = field.get("modifiers", '{}')
+            modifiers_dict = json.loads(modifiers)
+            if 'readonly' in modifiers_dict and isinstance(modifiers_dict['readonly'], list):
+                modifiers_dict['readonly'] = ['|'] + modifiers_dict['readonly'] + [('can_edit_contact', '!=', True)]
+            else:
+                modifiers_dict['readonly'] = [('can_edit_contact', '!=', True)]
+            
+            field.set("modifiers", json.dumps(modifiers_dict))
+        
+        res['arch'] = etree.tostring(doc, encoding='unicode')
+    
+    return res
+```
