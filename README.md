@@ -2093,3 +2093,32 @@ def get_view(self, view_id=None, view_type='form', **options):
     
     return res
 ```
+### Migration:
+```
+# def migrate(cr, version):
+#     # Check if the column 'division_id' exists, and if not, add it
+#     cr.execute("""
+#         SELECT column_name
+#         FROM information_schema.columns
+#         WHERE table_name = 'res_users' and column_name = 'division_id';
+#     """)
+#     column = cr.fetchone()
+    
+#     # If the column doesn't exist, add it to the 'res_users' table
+#     if not column:
+#         cr.execute("""
+#             ALTER TABLE res_users
+#             ADD COLUMN division_id INTEGER REFERENCES farmer_division(id) ON DELETE SET NULL;
+#         """)
+```
+### Allow PostgreSql Remote Access:
+1. go to `/etc/postgresql/<version>/main`.
+    - open `postgresql.conf`: Look for `listen_addresses` and uncomment it and change it to `listen_addresses = "*"`.
+    - open `pg_hba.conf`: 
+        - add either `host    all             all             192.168.1.0/24          md5` to allow specific ip.
+        - `host    all             all             0.0.0.0/0               md5` for all.
+2. `sudo systemctl restart postgresql`
+3. `sudo ufw allow 5432/tcp`
+- To create a superuser in postgres:
+    - `CREATE USER <username> WITH PASSWORD '<password>';`.
+    - `ALTER USER <username> WITH SUPERUSER;`
