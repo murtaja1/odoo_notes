@@ -2122,3 +2122,10 @@ def get_view(self, view_id=None, view_type='form', **options):
 - To create a superuser in postgres:
     - `CREATE USER <username> WITH PASSWORD '<password>';`.
     - `ALTER USER <username> WITH SUPERUSER;`
+
+## Restart and Upgrade Odoo's Module:
+ - run the following command:
+ ```
+ ./odoo-bin -c odoo.conf -d <database_name> -u <module_name>
+ ex: ./odoo-bin -c /home/adminm/odoo/odoo_projects/shansheel17_c/odoo.conf -d shansheel17_c -u portal_user_manager
+ ```
