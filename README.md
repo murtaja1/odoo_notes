@@ -2129,3 +2129,10 @@ def get_view(self, view_id=None, view_type='form', **options):
  ./odoo-bin -c odoo.conf -d <database_name> -u <module_name>
  ex: ./odoo-bin -c /home/adminm/odoo/odoo_projects/shansheel17_c/odoo.conf -d shansheel17_c -u portal_user_manager
  ```
+ ## Odoo Docker:
+ - Check running dockers: `docker ps`
+ - run commands in docker image: `docker exec -it <container_name_or_id> /bin/bash`
+
+## Restart and Upgrade Odoo's Module in Docker:
+- find odoo.conf: `find / -name odoo.conf 2>/dev/null`
+- run `odoo -c /etc/odoo/odoo.conf -d <db_name> -u <module_name> --db_host <db_host> --db_user <db_user> --db_password <db_password>`
