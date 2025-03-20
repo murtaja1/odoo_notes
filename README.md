@@ -2136,3 +2136,5 @@ def get_view(self, view_id=None, view_type='form', **options):
 ## Restart and Upgrade Odoo's Module in Docker:
 - find odoo.conf: `find / -name odoo.conf 2>/dev/null`
 - run `odoo -c /etc/odoo/odoo.conf -d <db_name> -u <module_name> --db_host <db_host> --db_user <db_user> --db_password <db_password>`
+## FileStore Location
+- /home/<user>/.local/share/Odoo/filestore/<database_name>/
