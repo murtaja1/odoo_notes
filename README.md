@@ -2093,6 +2093,13 @@ def get_view(self, view_id=None, view_type='form', **options):
     
     return res
 ```
+### Add Button to Tree View:
+```
+<header>
+    <button name="action_open_transaction_wizard" type="object" string="New" class="oe_highlight" display="always" />
+</header> ```
+- `display="always"`: to make the button always visible.
+
 ### Migration:
 ```
 # def migrate(cr, version):
@@ -2138,3 +2145,5 @@ def get_view(self, view_id=None, view_type='form', **options):
 - run `odoo -c /etc/odoo/odoo.conf -d <db_name> -u <module_name> --db_host <db_host> --db_user <db_user> --db_password <db_password>`
 ## FileStore Location
 - /home/<user>/.local/share/Odoo/filestore/<database_name>/
+
+odoo -c /etc/odoo/odoo.conf -d fitr -u fitr_base --db_host 172.17.0.1 --db_user odoo --db_password UeFKNcoM28e7GoSY
