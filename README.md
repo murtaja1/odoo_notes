@@ -2146,4 +2146,8 @@ def get_view(self, view_id=None, view_type='form', **options):
 ## FileStore Location
 - /home/<user>/.local/share/Odoo/filestore/<database_name>/
 
-odoo -c /etc/odoo/odoo.conf -d fitr -u fitr_base --db_host 172.17.0.1 --db_user odoo --db_password UeFKNcoM28e7GoSY
+odoo -c /etc/odoo/odoo.conf -d shanasheel -u shanasheel_user_management --db_host 34.141.81.0 --db_user odoo --db_password 1sdfad
+
+## Force Odoo to use https instead of http:
+- go to `Settings/Technical/System Parameters`.
+- search for `web.base.url.freeze` if not there create one and set to True
